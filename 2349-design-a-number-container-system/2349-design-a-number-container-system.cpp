@@ -1,19 +1,27 @@
 class NumberContainers {
 public:
-    map<int,int> m;
+   map<int,set<int>> umap;
+    map<int,int> ind;
     NumberContainers() {
+        umap.clear();
+        ind.clear();
     }
     
     void change(int index, int number) {
-        m[index]=number;
+        if(ind.find(index)!=ind.end())
+        {
+            umap[ind[index]].erase(index);
+            ind[index] = number;
+        }
+        else
+           ind[index] = number;
+          umap[number].insert(index); 
     }
     
     int find(int number) {
-       
-        for(auto i:m){
-            if(i.second==number){return i.first;}
-        }
-      return -1;  
+        if(umap.find(number)==umap.end() || umap[number].size()==0)
+            return -1;
+        return *umap[number].begin();
     }
 };
 
