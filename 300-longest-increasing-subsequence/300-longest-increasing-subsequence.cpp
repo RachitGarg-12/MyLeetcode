@@ -2,17 +2,27 @@ class Solution {
 public:
     int lengthOfLIS(vector<int>& nums) {
       int n=nums.size();     
-      vector<int> next(n+1,0) , curr(n+1,0);
-        //dp[i][prev] , lis till index i from index i-1
-      for(int ind=n-1;ind>=0;ind--){
-          for(int pre=ind-1;pre>=-1;pre--){
-          curr[pre+1]=0+next[pre+1];
-          if(pre==-1 || nums[ind]>nums[pre]){
-          curr[pre+1]=max(curr[pre+1],1+next[ind+1]);
-        }
+      vector<int> dp(n,1);dp[0]=1;vector<int> hash(n);
+        int lastindex=0;
+        int ans=1;
+      for(int i=1;i<n;i++){
+          hash[i]=i;
+          for(int j=i-1;j>=0;j--){
+              if(nums[i]>nums[j] && dp[i]<dp[j]+1){
+                  dp[i]=dp[j]+1;
+                  hash[i]=j;}
           }
-         next=curr;
+          if(dp[i]>ans){ans=dp[i];lastindex=i;}
       }
-    return curr[0];
+        vector<int> back; back.push_back(nums[lastindex]);
+        while(hash[lastindex]!=lastindex){
+            lastindex=hash[lastindex];
+            back.push_back(nums[lastindex]);
+        }
+        reverse(back.begin(),back.end());
+        for(auto i:back){cout<<i<<" ";}
+        cout<<endl;
+        return ans;
     }
+    
 };
