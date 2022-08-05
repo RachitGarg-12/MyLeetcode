@@ -16,10 +16,9 @@ public:
         while(temp!=NULL){
             len++;temp=temp->next;
         }
-        ListNode* temp2=head;len /= 2; ListNode* ans;
-        while(len){
+        ListNode* temp2=head;len /= 2;
+        while(len--){
             temp2=temp2->next;
-            len--;
         }
         return temp2;
     }
