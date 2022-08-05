@@ -19,9 +19,8 @@ public:
         ListNode* temp2=head;len /= 2; ListNode* ans;
         while(len){
             temp2=temp2->next;
-            if(len==1){ans=temp2;break;}
             len--;
         }
-        return ans;
+        return temp2;
     }
 };
