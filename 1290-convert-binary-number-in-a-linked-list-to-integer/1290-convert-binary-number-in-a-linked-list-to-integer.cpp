@@ -11,15 +11,13 @@
 class Solution {
 public:
     int getDecimalValue(ListNode* head) {
-        ListNode *temp=head;
-        int len=0;
-        while(temp!=NULL){len++;temp=temp->next;}
-         ListNode *temp2=head;int ans=0;len--;
-        while(len>=0){ 
-            // cout<<len<<" "<<ans<<" "<<temp2->val<<endl;
-            if(temp2->val==1){ans += 1<<len;}
-            temp2=temp2->next;
-            len--;}
+        ListNode *temp=head;int ans=0;
+        while(temp!=NULL){
+            ans *= 2;
+            ans += (temp->val)*1;
+            temp=temp->next;
+        }
+        
         return ans;
     }
 };
