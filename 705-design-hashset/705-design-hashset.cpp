@@ -1,6 +1,6 @@
 class MyHashSet {
 public:
-    map<int,int> m;
+    unordered_map<int,int> m;
     MyHashSet() {
         
     }
