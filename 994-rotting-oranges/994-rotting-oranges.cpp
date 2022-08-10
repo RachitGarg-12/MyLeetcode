@@ -8,8 +8,6 @@ public:
                q.push({{i.first.first,i.first.second},i.second});
        }
         while(!q.empty()){
-            int level_size=q.size();
-            while(level_size--){
             pair<pair<int,int>,int> p=q.front();q.pop();
             int r=p.first.first,c=p.first.second,t=p.second;
             ans=max(ans,t);
@@ -27,7 +25,7 @@ public:
              if(c>0){
                 if(grid[r][c-1]==1 && vis[r][c-1]==0){vis[r][c-1]=1;q.push({{r,c-1},t+1});grid[r][c-1]=2;}
             }
-            }
+            
         }
          return ans;
     }
