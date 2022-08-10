@@ -1,12 +1,9 @@
 class Solution {
 public:
     
-     int bfs(vector<vector<int>>& grid,vector<pair<pair<int,int>,int>> &rotten,vector<vector<int>> &vis,int n,int m){
+     int bfs(vector<vector<int>>& grid,queue<pair<pair<int,int>,int>>& q,vector<vector<int>> &vis,int n,int m){
         int ans=0;
-        queue<pair<pair<int,int>,int>> q;
-       for(auto i:rotten){
-               q.push({{i.first.first,i.first.second},i.second});
-       }
+        
         while(!q.empty()){
             pair<pair<int,int>,int> p=q.front();q.pop();
             int r=p.first.first,c=p.first.second,t=p.second;
@@ -32,15 +29,15 @@ public:
     int orangesRotting(vector<vector<int>>& grid) {
         int n=grid.size();int m=grid[0].size();
         vector<vector<int>> vis(n,vector<int>(m,0));
-        vector<pair<pair<int,int>,int>> rotten;bool done=false;
+        queue<pair<pair<int,int>,int>> q;bool done=false;
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
                 if(grid[i][j]==2 && vis[i][j]==0){
-                    done=true;rotten.push_back({{i,j},0});
+                    done=true;q.push({{i,j},0});
                 }
             }
         }
-        int ans=bfs(grid,rotten,vis,n,m);
+        int ans=bfs(grid,q,vis,n,m);
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
                 if(grid[i][j]==1) return -1;
