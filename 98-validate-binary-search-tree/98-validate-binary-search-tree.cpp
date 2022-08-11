@@ -12,14 +12,12 @@
 class Solution {
 public:
      bool isValidBST(TreeNode* root) {
-        TreeNode* prev = NULL;
-        return validate(root, prev);
+       if(root==NULL) return true;
+        return validate(root, LONG_MAX, LONG_MIN);
     }
-    bool validate(TreeNode* node, TreeNode* &prev) {
+    bool validate(TreeNode* node,long long mx,long long mn) {
         if (node == NULL) return true;
-        if (!validate(node->left, prev)) return false;
-        if (prev != NULL && prev->val >= node->val) return false;
-        prev = node;
-        return validate(node->right, prev);
+        if(node->val>=mx || node->val<=mn) return false;
+        return validate(node->left,node->val,mn) && validate(node->right,mx,node->val);
     }
 };
