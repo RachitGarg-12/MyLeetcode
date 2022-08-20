@@ -13,9 +13,10 @@ public:
 		int ans = INT_MAX;
 
 		while(j < n){
-			sum += nums[j];cout<<i<<" "<<j<<endl;
+			sum += nums[j];
 			while(sum >= target){
-				ans = min(ans, j-i+1);
+                int len=j-i+1;
+				ans = min(ans,len);
 				sum -= nums[i];
 				i++;
 			}
