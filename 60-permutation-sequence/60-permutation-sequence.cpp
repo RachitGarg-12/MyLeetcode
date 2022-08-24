@@ -1,18 +1,19 @@
 class Solution {
 public:
     string getPermutation(int n, int k) {
-        string s;
-        for(int i=1;i<=n;i++){ s+=to_string(i);}
-        for(int i=1;i<k;i++){
-        int in;
-        for(in=n-2;in>=0;in--){
-            if(s[in]<s[in+1]){break;}
+      vector<int> fact(10);fact[0]=1;
+      for(int i=1;i<=9;i++){fact[i]=i*fact[i-1];}
+        string s,t;
+        for(int i=1;i<=n;i++){t+=to_string(i);}
+        
+        while(k>=1 && t.size()>=1){
+        int cur=(k%fact[n-1])?(k/fact[n-1])+1:(k/fact[n-1]);
+        s+=t[cur-1];t.erase(t.begin()+cur-1);
+        if(k%fact[n-1]==0){k=fact[n-1];}
+        else{k%=fact[n-1];}
+        n--;
         }
-        for(int j=n-1;j>in;j--){
-            if(s[j]>s[in]){swap(s[j],s[in]);break;}
-        }
-        reverse(s.begin()+in+1,s.end());   
-        }
+        // if(t.size()>0){s+=t[0];}
         return s;
     }
 };
