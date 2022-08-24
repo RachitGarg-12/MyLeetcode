@@ -6,7 +6,7 @@ public:
         string s,t;
         for(int i=1;i<=n;i++){t+=to_string(i);}
         
-        while(t.size()>=1){
+        while(t.size()>0){
         int cur=(k%fact[n-1])?(k/fact[n-1])+1:(k/fact[n-1]);
         s+=t[cur-1];t.erase(t.begin()+cur-1);
         if(k%fact[n-1]==0){k=fact[n-1];}
