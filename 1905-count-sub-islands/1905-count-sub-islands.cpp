@@ -12,7 +12,7 @@ public:
     
     }
     int countSubIslands(vector<vector<int>>& a, vector<vector<int>>& b) {
-        n=a.size();m=a[0].size();vis.resize(n+1,vector<int>(m+1,0));int ans=0;
+        n=a.size();m=a[0].size();vis.resize(n,vector<int>(m,0));int ans=0;
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
                 if(b[i][j]==1 && !vis[i][j]){
