@@ -4,9 +4,9 @@ public:
         vector<vector<int>> sa;int n=a.size();
         for(int i=0;i<n;i++){
              vector<int> temp;
-            for(int j=i;j<n;j++){
-                   if(a[j]==0){i=j;break;}
-                   temp.push_back(a[j]);i=j;
+            for(int j=i;j<n;j++){ i=j;
+                   if(a[j]==0){break;}
+                   temp.push_back(a[j]);
             }
             if(temp.size()>0){sa.push_back(temp);}
         }
