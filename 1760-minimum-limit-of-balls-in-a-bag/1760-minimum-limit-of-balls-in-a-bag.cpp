@@ -9,7 +9,7 @@ public:
             }else{tot++;
                   if(tot>comb){return false;}}
         }
-        if(tot>comb){return false;}
+      
         return true;
     }
     int minimumSize(vector<int>& a, int mx) {
