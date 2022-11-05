@@ -14,7 +14,6 @@ public:
             else if(m[rev]>0){
                 int mn=min(m[a[i]],m[rev]);
                 ans+=mn*4;m[a[i]]=0;m[rev]=0;}
-            // cout<<i<<" "<<ans<<endl;
         }
         return ans;
     }
