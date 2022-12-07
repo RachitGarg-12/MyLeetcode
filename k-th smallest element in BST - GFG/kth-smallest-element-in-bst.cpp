@@ -93,14 +93,16 @@ struct Node {
 
 class Solution {
   public:
-    vector<int> v;
+    vector<int> v;int mx;
     void f(Node *t){
+        if(v.size()<mx){
         if(t->left!=NULL)f(t->left);
         v.push_back(t->data);
         if(t->right!=NULL)f(t->right);
+        }
     }
     int KthSmallestElement(Node *root, int K) {
-        f(root);
+        mx=K;f(root);
         if(v.size()<K)return -1;
         return v[K-1];
     }
