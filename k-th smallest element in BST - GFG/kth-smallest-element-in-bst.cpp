@@ -95,13 +95,12 @@ class Solution {
   public:
     vector<int> v;
     void f(Node *t){
-        v.push_back(t->data);
         if(t->left!=NULL)f(t->left);
+        v.push_back(t->data);
         if(t->right!=NULL)f(t->right);
     }
     int KthSmallestElement(Node *root, int K) {
         f(root);
-        sort(v.begin(),v.end());
         if(v.size()<K)return -1;
         return v[K-1];
     }
