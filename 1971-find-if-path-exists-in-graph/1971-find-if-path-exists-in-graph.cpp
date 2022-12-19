@@ -7,10 +7,10 @@ public:
             adj[i[0]].push_back(i[1]);
             adj[i[1]].push_back(i[0]);
         }
-        queue<int> q;
+        stack<int> q;
         q.push(source);vis[source]=true;
         while(!q.empty()){
-            int cur=q.front();
+            int cur=q.top();
             q.pop();
             if(cur==destination)return true;
             for(auto i:adj[cur]){
