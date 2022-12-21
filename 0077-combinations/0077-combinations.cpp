@@ -1,22 +1,15 @@
 class Solution {
 public:
-    map<vector<int>,int> m;
+    vector<vector<int>> ans;
     void rec(int cur,vector<int> a,int n,int k){
-        if(k-a.size()>n-cur){return;}
-        if(a.size()==k){m[a]=1;return;}
-        for(int i=cur+1;i<=n;i++){
-            a.push_back(i);
-            rec(i,a,n,k);
-            a.pop_back();
-            rec(i,a,n,k);
-        } 
+        if(k-a.size()>n-cur+1){return;}
+        if(a.size()==k){ans.push_back(a);return;}
+        rec(cur+1,a,n,k);
+        a.push_back(cur);
+        rec(cur+1,a,n,k);
     }
     vector<vector<int>> combine(int n, int k) {
-        rec(0,{},n,k);
-        vector<vector<int>> ans;
-        for(auto i:m){
-            ans.push_back(i.first);
-        }
+        rec(1,{},n,k); 
         return ans;
     }
 };
