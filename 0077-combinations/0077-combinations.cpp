@@ -3,7 +3,7 @@ public:
     map<vector<int>,int> m;
     void rec(int cur,vector<int> a,int n,int k){
         if(k-a.size()>n-cur){return;}
-        if(a.size()==k){m[a]=1;}
+        if(a.size()==k){m[a]=1;return;}
         for(int i=cur+1;i<=n;i++){
             a.push_back(i);
             rec(i,a,n,k);
