@@ -10,9 +10,9 @@ public:
     }
     int maxProfit(vector<int>& a) {
         int n=a.size();
+        if(n==1){return 0;}
         dp.resize(n,-1);dp[0]=0;
         int ans=rec(1,a[0],true,a);
-        for(auto i:dp){ans=max(ans,i);}
-        return ans;
+        return dp[1];
     }
 };
