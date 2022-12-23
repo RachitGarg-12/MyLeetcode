@@ -12,7 +12,7 @@ public:
         int n=a.size();
         dp.resize(n,-1);dp[0]=0;
         int ans=rec(1,a[0],true,a);
-        // for(auto i:dp){ans=max(ans,i);}
+        for(auto i:dp){ans=max(ans,i);}
         return ans;
     }
 };
