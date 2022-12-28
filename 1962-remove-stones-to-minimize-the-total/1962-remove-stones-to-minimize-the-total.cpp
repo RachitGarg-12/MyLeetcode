@@ -14,7 +14,6 @@ public:
             int left= mx- mx/2;
             if(left>0){pq.push(left);}
         }
-        cout<<remove<<endl;
         return total;
     }
 };
