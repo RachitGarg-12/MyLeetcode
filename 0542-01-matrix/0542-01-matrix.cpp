@@ -1,28 +1,24 @@
 class Solution {
 public:
      int n,m;
+
      void bfs(vector<vector<int>>& grid,queue<pair<pair<int,int>,int>>& q,vector<vector<int>> &vis,vector<vector<int>> &dis){      
+     int drow[]={-1,0,1,0};
+     int dcol[]={0,1,0,-1};
         while(!q.empty()){
             pair<pair<int,int>,int> p=q.front();
             q.pop();
             int r=p.first.first,c=p.first.second,t=p.second;
-            cout<<r<<" "<<c<<" "<<t<<endl;
-            if(r-1>=0 && grid[r-1][c]==1 && vis[r-1][c]==0){
-                    q.push({{r-1,c},t+1});vis[r+-1][c]=1;
-            dis[r-1][c]=t+1;
+            for(int i=0;i<4;i++){
+                int row=r+drow[i];
+                int col=c+dcol[i];
+                if(row>=0 && row<n && col>=0 && col<m && !vis[row][col] && grid[row][col]==1) 
+                {
+                    q.push({{row,col},t+1});
+                    vis[row][col]=1;
+                    dis[row][col]=t+1;
+                }
             }
-            if(r<n-1 && grid[r+1][c]==1 && vis[r+1][c]==0){                                                   q.push({{r+1,c},t+1});vis[r+1][c]=1;
-            dis[r+1][c]=t+1;
-            }
-            if(c<m-1 && grid[r][c+1]==1 && vis[r][c+1]==0){
-                    q.push({{r,c+1},t+1});vis[r][c+1]=1;
-            dis[r][c+1]=t+1;
-            }
-            if(c-1>=0 && grid[r][c-1]==1 && vis[r][c-1]==0){
-                     q.push({{r,c-1},t+1});vis[r][c-1]=1;
-            dis[r][c-1]=t+1;
-            }
-            
         }
 
     }
