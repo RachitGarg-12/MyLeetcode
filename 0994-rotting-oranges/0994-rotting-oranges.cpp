@@ -7,18 +7,16 @@ public:
             pair<pair<int,int>,int> p=q.front();q.pop();
             int r=p.first.first,c=p.first.second,t=p.second;
             ans=max(ans,t);
-            if(r>0){
-                if(grid[r-1][c]==1 && vis[r-1][c]==0){
-                    vis[r-1][c]=1;q.push({{r-1,c},t+1});grid[r-1][c]=2;}
+            if(r-1>=0 && grid[r-1][c]==1 && vis[r-1][c]==0){
+                    vis[r-1][c]=1;q.push({{r-1,c},t+1});grid[r-1][c]=2;
             }
-            if(r<n-1){
-                if(grid[r+1][c]==1 && vis[r+1][c]==0){vis[r+1][c]=1;q.push({{r+1,c},t+1});grid[r+1][c]=2;}
+            if(r<n-1 && grid[r+1][c]==1 && vis[r+1][c]==0){                                                   vis[r+1][c]=1;q.push({{r+1,c},t+1});grid[r+1][c]=2;
             }
-            if(c<m-1){
-                if(grid[r][c+1]==1 && vis[r][c+1]==0){vis[r][c+1]=1;q.push({{r,c+1},t+1});grid[r][c+1]=2;}
+            if(c<m-1 && grid[r][c+1]==1 && vis[r][c+1]==0){
+                    vis[r][c+1]=1;q.push({{r,c+1},t+1});grid[r][c+1]=2;
             }
-             if(c>0){
-                if(grid[r][c-1]==1 && vis[r][c-1]==0){vis[r][c-1]=1;q.push({{r,c-1},t+1});grid[r][c-1]=2;}
+            if(c-1>=0 && grid[r][c-1]==1 && vis[r][c-1]==0){
+                vis[r][c-1]=1;q.push({{r,c-1},t+1});grid[r][c-1]=2;
             }
             
         }
