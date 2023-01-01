@@ -1,6 +1,7 @@
 class Solution {
 public:
-    vector<vector<int>> vis;int n,m;
+    vector<vector<int>> vis;
+    int n,m;
     void dfs(vector<vector<int>>& a, int i, int j, int color){
         vis[i][j]=1;
         
@@ -12,10 +13,9 @@ public:
         a[i][j]=color;
     }
     vector<vector<int>> floodFill(vector<vector<int>>& a, int sr, int sc, int color) {
-        n=a.size();m=a[0].size();
+        n=a.size(),m=a[0].size();
         vis.resize(n,vector<int>(m,0));
         dfs(a,sr,sc,color);
         return a;
     }
 };
-
