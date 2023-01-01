@@ -6,8 +6,6 @@ public:
             pair<pair<int,int>,int> p=q.front();
             q.pop();
             int r=p.first.first,c=p.first.second,t=p.second;
-            vis[r][c]=1;
-            dis[r][c]=t;
             cout<<r<<" "<<c<<" "<<t<<endl;
             if(r-1>=0 && grid[r-1][c]==1 && vis[r-1][c]==0){
                     q.push({{r-1,c},t+1});vis[r+-1][c]=1;
@@ -38,6 +36,8 @@ vector<vector<int>> updateMatrix(vector<vector<int>>& grid) {
             for(int j=0;j<m;j++){
                 if(grid[i][j]==0){
                     q.push({{i,j},0});
+                    vis[i][j]=1;
+                    dis[i][j]=0;
                 }
             }
         }
