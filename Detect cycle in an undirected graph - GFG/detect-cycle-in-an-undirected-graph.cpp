@@ -6,12 +6,12 @@ using namespace std;
 class Solution {
   public:
     bool detect(int i,vector<int> adj[],vector<int> &vis){
-       queue<pair<int,int>> q;
+       stack<pair<int,int>> q;
        vis[i]=1;
        q.push({i,-1});
        while(!q.empty()){
-           int parent=q.front().second;
-           int node=q.front().first;
+           int parent=q.top().second;
+           int node=q.top().first;
            q.pop();
            for(auto it:adj[node]){
                if(!vis[it]){
