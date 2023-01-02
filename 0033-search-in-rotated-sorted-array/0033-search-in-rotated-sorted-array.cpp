@@ -1,28 +1,21 @@
 class Solution {
 public:
     int search(vector<int>& a, int target) {
-        int n=a.size();
-        int l=0,r=n-1,ans=-1;
-        if(a[n-1]==target){return n-1;}
-        while(l<=r){
-            // cout<<l<<" "<<r<<endl;
-            int m=l+(r-l)/2;
-           if(a[m]==target){ans=m;break;}
-           if(a[m]>a[n-1]){
-                if(target>a[n-1]){
-                    if(a[m]>target){r=m-1;}
-                    else{l=m+1;}}
-                else{
-                    l=m+1;
-                }
+                int n = a.size();
+        int left = 0, right = n - 1;
+        while(left <= right) {
+            int mid = left + (right - left) / 2;
+            if(a[mid] == target) {
+                return mid; // no need to store the answer, just return it
             }
-            else{
-                 if(target<a[n-1]){
-                     if(a[m]>target){r=m-1;}
-                    else{l=m+1;}}
-                else{r=m-1;}
+            if((target >= a[0] && (a[mid] >= target || a[mid] < a[0])) ||
+               (target < a[0] && (a[mid] < a[0] && a[mid] >= target))) {
+                right = mid - 1;
+            }
+            else {
+                left = mid + 1;
             }
         }
-        return ans;
+        return -1; 
     }
 };
