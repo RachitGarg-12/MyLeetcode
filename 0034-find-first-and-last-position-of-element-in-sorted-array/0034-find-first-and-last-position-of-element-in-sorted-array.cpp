@@ -1,13 +1,24 @@
 class Solution {
 public:
-    vector<int> searchRange(vector<int>& a, int t) {
-        int n=a.size();
-        vector<int> ans(2,-1);bool b=false;
-        for(int i=0;i<n;i++){
-            if(b==false && a[i]==t){ans[0]=i;b=true;ans[1]=i;}
-            else if(a[i]==t){ans[1]=max(ans[1],i);}
-            else if(b){break;}
+    vector<int> searchRange(vector<int>& nums, int target) {
+        int n=nums.size();
+        int l=0,r=n-1;
+        int first=-1;
+        while(l<=r){
+            int m= l+(r-l)/2;
+            if(nums[m]==target){first=m;r=m-1;}
+            else if(nums[m]>target){r=m-1;}
+            else{l=m+1;}
         }
-        return ans;
+        if(first==-1)return {-1,-1};
+        l=0,r=n-1;
+        int last=-1;
+        while(l<=r){
+            int m= l+(r-l)/2;
+            if(nums[m]==target){last=m;l=m+1;}
+            else if(nums[m]>target){r=m-1;}
+            else{l=m+1;}
+        }
+        return {first,last};
     }
 };
