@@ -29,23 +29,23 @@ int main() {
 // } Driver Code Ends
 
 
-vector<long long> printFirstNegativeInteger(long long int a[],
-                                             long long int n, long long int k) {
-    vector<long long> neg;
-    for(int i=0;i<n;i++){
-        if(a[i]<0){neg.push_back(i);}
-    }
-    long long j=0;
-    int len=neg.size();
+vector<long long> printFirstNegativeInteger(long long int a[],long long int n, long long int k) {
     vector<long long> ans;
+    queue<long long> q;
+    for(int i=0;i<k-1;i++){
+        if(a[i]<0){q.push(i);}
+    }
     for(int i=k-1;i<n;i++){
-        if(j<len && neg[j]<=i && neg[j]>=i-k+1){ans.push_back(a[neg[j]]);}
-        else if(j<len && neg[j]<i-k+1){
-            while(neg[j]<i-k+1 && j<len){j++;}
-            if(j<len && neg[j]<=i){ans.push_back(a[neg[j]]);}
-            else{ans.push_back(0);}
-        }
-        else{ans.push_back(0);}
+       if(a[i]<0){q.push(i);}
+       if(q.empty()){ans.push_back(0);continue;}
+       long long j=q.front();
+       if(j>=i-k+1 && j<=i){ans.push_back(a[j]);}
+       else if(j<i-k+1){
+           while(!q.empty() && j<i-k+1){q.pop();j=q.front();}
+           if( !q.empty() && j<=i){ans.push_back(a[j]);}
+           else{ans.push_back(0);}
+       }
+       else{ans.push_back(0);}
     }
     return ans;
  }
