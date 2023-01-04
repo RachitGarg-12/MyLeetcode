@@ -6,9 +6,9 @@ public:
         mp[sum] = 1;
         for(auto it:nums){
             sum += it;
-            int find = sum - k;
-            if(mp.find(find) != mp.end()){
-                ans += mp[find];
+            int rem = sum - k;
+            if(mp.find(rem) != mp.end()){
+                ans += mp[rem];
             }
             mp[sum]++;
         }
