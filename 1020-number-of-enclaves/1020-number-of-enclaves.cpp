@@ -1,30 +1,45 @@
 class Solution {
 public:
-    int n,m,ans;vector<vector<bool>> vis;bool b=true;
-    void dfs(vector<vector<int>>& a,int i,int j){
-        vis[i][j]=true;
-        if(i==0 || j==0 || i==n-1 || j==m-1){b=false;return;}
-        ans++;
+    int n,m;
+
+    void dfs(int i,int j,vector<vector<int>>& board,vector<vector<int>> &vis){
+        vis[i][j]=1;
+        if(i-1>=0 && board[i-1][j]==1 && !vis[i-1][j]){dfs(i-1,j,board,vis);}
+        if(j-1>=0 && board[i][j-1]==1 && !vis[i][j-1] ){dfs(i,j-1,board,vis);}
+        if(i+1<n && board[i+1][j]==1&& !vis[i+1][j]){dfs(i+1,j,board,vis);}
+        if(j+1<m && board[i][j+1]==1&& !vis[i][j+1] ){dfs(i,j+1,board,vis);}
         
-        if(i>0 && !vis[i-1][j] && a[i-1][j]==1){dfs(a,i-1,j);}
-        if(i<n-1 && !vis[i+1][j] && a[i+1][j]==1){dfs(a,i+1,j);}
-        if(j<m-1 && !vis[i][j+1] && a[i][j+1]==1){dfs(a,i,j+1);}
-        if(j>0 && !vis[i][j-1] && a[i][j-1]==1){dfs(a,i,j-1);}
-    
     }
-    int numEnclaves(vector<vector<int>>& a) {
-        n=a.size();m=a[0].size();
-        vis.resize(n,vector<bool>(m,false));
-        int res=0;
-        for(int i=1;i<n-1;i++){
-            for(int j=1;j<m-1;j++){
-                if(a[i][j]==1 && !vis[i][j]){
-                    b=true;ans=0;dfs(a,i,j);
-                    if(b){res+=ans;}
+    int numEnclaves(vector<vector<int>>& board) {
+        n=board.size();
+        m=board[0].size();
+        vector<vector<int>> vis(n,vector<int>(m,0));
+        for(int i=0;i<n;i++){
+                if(!vis[i][0] && board[i][0]==1){
+                    dfs(i,0,board,vis);
                 }
-            }
-           
         }
-        return res;
+        for(int j=0;j<m;j++){
+                if(!vis[0][j] && board[0][j]==1){
+                    dfs(0,j,board,vis);
+                }
+        }
+        for(int j=0;j<m;j++){
+                if(!vis[n-1][j] && board[n-1][j]==1){
+                    dfs(n-1,j,board,vis);
+                }
+        }
+        for(int i=0;i<n;i++){
+            if(!vis[i][m-1] && board[i][m-1]==1){
+                    dfs(i,m-1,board,vis);
+                }
+        }
+        int ans=0;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(vis[i][j]==0 && board[i][j]==1){ans++;}
+            }
+        }   
+        return ans;
     }
 };
