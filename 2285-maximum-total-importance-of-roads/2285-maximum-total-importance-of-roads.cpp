@@ -5,7 +5,6 @@ public:
         vis[i]=1;
         for(auto j:adj[i]){
             if(!vis[j]){
-                // cout<<i<<" "<<value[i]<<" "<<j<<" "<<value[j]<<endl;
                dfs(j,adj,value,vis);
             }
             ans+=(long long)value[i]+value[j];
@@ -24,8 +23,8 @@ public:
         sort(sz.begin(),sz.end());
         int val=n;
         vector<int> value(n);
-        for(int i=sz.size()-1;i>=0;i--){
-            cout<<sz[i].second<<" "<<val<<endl;
+        int m=sz.size();
+        for(int i=m-1;i>=0;i--){
             value[sz[i].second]=val;val--;
         }
         vector<int> vis(n,0);
