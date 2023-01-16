@@ -2,7 +2,6 @@ class Solution {
 public:
     long long maximumImportance(int n, vector<vector<int>>& roads) {
         vector<vector<int>> adj(n);
-        vector<pair<int,int>> vis;
         vector<pair<int,int>> sz;
         for(auto i:roads){
             adj[i[0]].push_back(i[1]);
