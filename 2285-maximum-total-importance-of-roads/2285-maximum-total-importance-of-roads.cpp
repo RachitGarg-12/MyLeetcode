@@ -1,11 +1,12 @@
 class Solution {
 public:
     long long ans=0;
-    void dfs(int i,vector<vector<int>> &adj,vector<int> &value,vector<int> &vis){
+    vector<int> value;
+    void dfs(int i,vector<vector<int>> &adj,vector<int> &vis){
         vis[i]=1;
         for(auto j:adj[i]){
             if(!vis[j]){
-               dfs(j,adj,value,vis);
+               dfs(j,adj,vis);
             }
             ans+=(long long)value[i]+value[j];
         }
@@ -22,7 +23,7 @@ public:
         }
         sort(sz.begin(),sz.end());
         int val=n;
-        vector<int> value(n);
+        value.resize(n);
         int m=sz.size();
         for(int i=m-1;i>=0;i--){
             value[sz[i].second]=val;val--;
@@ -30,7 +31,7 @@ public:
         vector<int> vis(n,0);
         for(int i=0;i<n;i++){
             if(!vis[i]){
-                dfs(i,adj,value,vis);
+                dfs(i,adj,vis);
             }
         }
        return ans/2; 
