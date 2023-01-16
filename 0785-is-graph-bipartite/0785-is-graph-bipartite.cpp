@@ -6,10 +6,10 @@ public:
         
         for(int i=0;i<n;i++){
          if(graph[i].size()>0 && color[i]==-1){
-         queue<int> q;
+         stack<int> q;
           q.push(i);color[i]=0;
         while(!q.empty()){
-            int k=q.front();
+            int k=q.top();
             q.pop();
             int cn=(color[k]==0)?1:0;
             for(auto j:graph[k]){
