@@ -12,7 +12,7 @@ public:
         }
         sort(sz.begin(),sz.end());
         int val=n;
-        vector<int> value(n);
+        unordered_map<int,int>value;
         int m=sz.size();
         for(int i=m-1;i>=0;i--){
             value[sz[i].second]=val;val--;
