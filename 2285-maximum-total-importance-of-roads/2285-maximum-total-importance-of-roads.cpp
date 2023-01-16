@@ -2,8 +2,8 @@ class Solution {
 public:
     long long ans=0;
     vector<int> value;
-    void dfs(int i,vector<vector<int>> &adj,vector<int> &vis){
-        vis[i]=1;
+    void dfs(int i,vector<vector<int>> &adj,vector<bool> &vis){
+        vis[i]=true;
         for(auto j:adj[i]){
             if(!vis[j]){
                dfs(j,adj,vis);
@@ -28,7 +28,7 @@ public:
         for(int i=m-1;i>=0;i--){
             value[sz[i].second]=val;val--;
         }
-        vector<int> vis(n,0);
+        vector<bool> vis(n,false);
         for(int i=0;i<n;i++){
             if(!vis[i]){
                 dfs(i,adj,vis);
