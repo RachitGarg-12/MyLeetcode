@@ -3,11 +3,16 @@ public:
     bool dfs(int i,vector<vector<int>>& adj,vector<int> &vis,vector<int> &pathvis,vector<int> &check){
         vis[i]=1;
         pathvis[i]=1;
+        check[i]=0;
         for(auto j:adj[i]){
             if(!vis[j]){
-                if(dfs(j,adj,vis,pathvis,check))return true;
+                if(dfs(j,adj,vis,pathvis,check)){
+                    check[i]=0;return true;
+                }
             }
-            else if(pathvis[j]){return true;}
+            else if(pathvis[j]){
+                check[i]=0;return true;
+            }
         }
         check[i]=1;
         pathvis[i]=0;
