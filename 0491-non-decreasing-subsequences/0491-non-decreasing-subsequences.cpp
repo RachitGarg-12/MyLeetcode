@@ -1,10 +1,13 @@
 class Solution {
 public:
-    set<vector<int>> ans;
+    map<vector<int>,int> m;
+    vector<vector<int>> res;
     int n;
     void f(int i,vector<int> &a,vector<int> temp){
         if(i==n){
-            if(temp.size()>=2){ans.insert(temp);}
+            if(temp.size()>=2 && m.find(temp)==m.end()){
+                res.push_back(temp);m[temp]=1;
+            } 
             return;
         }
         int l=temp.size();
@@ -12,15 +15,11 @@ public:
         if(l==0 || a[i]>=temp[l-1]){
               temp.push_back(a[i]);
               f(i+1,a,temp); 
-        }
-        
-        
+        }   
     }
     vector<vector<int>> findSubsequences(vector<int>& a) {
         n=a.size();
         f(0,a,{});
-        vector<vector<int>> res;
-        for(auto i:ans){res.push_back(i);}
         return res;
     }
 };
