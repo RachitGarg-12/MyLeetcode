@@ -15,6 +15,7 @@ public:
         if(l==0 || a[i]>=temp[l-1]){
               temp.push_back(a[i]);
               f(i+1,a,temp); 
+              temp.pop_back();
         }   
     }
     vector<vector<int>> findSubsequences(vector<int>& a) {
