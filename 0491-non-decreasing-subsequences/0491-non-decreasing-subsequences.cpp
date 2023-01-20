@@ -1,26 +1,38 @@
 class Solution {
 public:
-    map<vector<int>,int> m;
-    vector<vector<int>> res;
-    int n;
-    void f(int i,vector<int> &a,vector<int> temp){
-        if(i==n){
-            if(temp.size()>=2 && m.find(temp)==m.end()){
-                res.push_back(temp);m[temp]=1;
-            } 
-            return;
+    map<vector<int>, int> res; 
+    vector<vector<int>> ans;
+    // function to generate all increasing subsequences
+    void solve(vector<int> nums, int index, vector<int> output){
+        
+        // if the output vector has at least 2 elements, add it to the ans vector 
+        if(output.size()>=2){
+            // increment the count of this subsequence in the map
+            res[output]++; 
+            // if this is the first time this subsequence is encountered, add it to the ans vector
+            if(res[output]==1)
+                ans.push_back(output);
         }
-        int l=temp.size();
-        f(i+1,a,temp);
-        if(l==0 || a[i]>=temp[l-1]){
-              temp.push_back(a[i]);
-              f(i+1,a,temp); 
-              temp.pop_back();
-        }   
+        
+        // loop through the remaining elements in the input vector
+        for(int i=index;i<nums.size();i++){
+            // if output vector is empty or current element is greater than or equal to the last element of the output vector, add it to the output vector
+            if(output.size()==0 || nums[i]>=output.back())
+                output.push_back(nums[i]);
+            // recursively call the solve function for the remaining elements
+            solve(nums, i+1, output);
+            // backtrack by removing the last element from the output vector
+            output.pop_back();
+        }
     }
-    vector<vector<int>> findSubsequences(vector<int>& a) {
-        n=a.size();
-        f(0,a,{});
-        return res;
+
+    vector<vector<int>> findSubsequences(vector<int>& nums) {
+        // initialize output and ans vectors
+        vector<int> output;
+        // vector<vector<int>> ans;
+        // call the solve function to generate all increasing subsequences
+        solve(nums, 0, output);
+        // return the ans vector
+        return ans;
     }
 };
