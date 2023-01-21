@@ -7,7 +7,7 @@ public:
             sum+=i;mx=max(mx,i);
         }
         long long rest=sum-mx;
-        if(mx>rest){return ((long long)2*rest)+1;}
+        if(mx>rest){return 2*rest+1;}
         return sum;
     }
 };
