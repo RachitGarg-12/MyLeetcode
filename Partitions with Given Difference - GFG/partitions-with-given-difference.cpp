@@ -22,9 +22,9 @@ class Solution {
         int tot=0;
         for(auto i:arr){tot+=i;}
         if( tot-d<0 || (tot-d)%2){return 0;}
-        int s2=(tot-d)/2;
-        vector<vector<int>> dp(n+1,vector<int>(s2+1,-1));
-        return f(n-1,arr,s2,dp);
+        int s1=(tot+d)/2;
+        vector<vector<int>> dp(n+1,vector<int>(s1+1,-1));
+        return f(n-1,arr,s1,dp);
     }
 };
 
