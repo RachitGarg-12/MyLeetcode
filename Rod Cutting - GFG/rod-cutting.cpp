@@ -10,17 +10,6 @@ using namespace std;
 
 class Solution{
   public:
-    int f(int i,int len,int price[],vector<vector<int>> &dp){
-        if(len==0){return 0;}
-        if(i==0){
-            return len*price[0];
-        }
-        if(dp[i][len]!=-1){return dp[i][len];}
-        int notcut=f(i-1,len,price,dp);
-        int cut=0;
-        if(i+1<=len){cut=price[i]+f(i,len-(i+1),price,dp);}
-        return dp[i][len]=max(cut,notcut);
-    }
     int cutRod(int price[], int n) {
         vector<vector<int>> dp(n,vector<int>(n+1,0));
         for(int i=0;i<=n;i++){dp[0][i]=i*price[0];}
