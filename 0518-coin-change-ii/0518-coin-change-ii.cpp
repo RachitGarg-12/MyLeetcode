@@ -14,7 +14,8 @@ public:
     // }
     int change(int target, vector<int>& coins) {
         int n=coins.size();
-        vector<vector<int>> dp(n,vector<int>(target+1,0));
+        int dp[n][target+1];
+        memset(dp,0,sizeof(dp));
         for(int i=0;i<=target;i++){
             if(i%coins[0]==0){dp[0][i]=1;}
         }
