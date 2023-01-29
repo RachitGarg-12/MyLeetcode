@@ -5,11 +5,8 @@ int dp[1001][1001];
 int rec(int i,int j){
      if(i<0 || j<0)return 0;
     if(dp[i][j]!=-1)return dp[i][j];
-    int ans=0;
-    if(a[i]==b[j]){ans=1+rec(i-1,j-1);}
-    ans=max(ans,rec(i,j-1));
-    ans=max(ans,rec(i-1,j));
-    return dp[i][j]=ans;
+    if(a[i]==b[j]){return 1+rec(i-1,j-1);}
+    return dp[i][j]=max(rec(i-1,j),rec(i,j-1));
                    
 }
     int longestCommonSubsequence(string text1, string text2) {
