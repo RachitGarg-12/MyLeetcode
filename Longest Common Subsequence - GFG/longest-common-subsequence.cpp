@@ -20,23 +20,22 @@ class Solution
     }
     int lcs(int x, int y, string s1, string s2){
         vector<vector<int>> dp(x+1,vector<int>(y+1,0));
-        bool b=false;
+        //shigting one index to right as our base case is for -1 index
+        // so here ind i represents i-1 of string, as i<0 || j<0 was 0 ,so
         for(int i=0;i<y;i++){
-            if(s1[0]==s2[i]){b=true;}
-            if(b==true){dp[0][i]=1;}
+            dp[0][i]=0;
         }
-        b=false;
         for(int i=0;i<x;i++){
-            if(s2[0]==s1[i]){b=true;}
-            if(b){dp[i][0]=1;}
+            dp[i][0]=0;
         }
-        for(int i=1;i<x;i++){
-            for(int j=1;j<y;j++){
-               if(s1[i]==s2[j]){dp[i][j]=1+dp[i-1][j-1];}
+        
+        for(int i=1;i<=x;i++){
+            for(int j=1;j<=y;j++){
+               if(s1[i-1]==s2[j-1]){dp[i][j]=1+dp[i-1][j-1];}
                else{dp[i][j]=max(dp[i-1][j],dp[i][j-1]);}                
             }
         }
-        return dp[x-1][y-1];
+        return dp[x][y];
     }
 };
 
