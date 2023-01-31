@@ -1,19 +1,28 @@
 class Solution {
 public:
-    string s1,s2;int n;
-    vector<vector<int>> dp;
-    int rec(int i,int j){
-        if(i>=n || j>=n)return 0;
-        if(dp[i][j]!=-1)return dp[i][j];
-        int ans=0;
-        if(s1[i]==s2[j]){ans=1+rec(i+1,j+1);}
-        ans=max(ans,rec(i+1,j));
-        ans=max(ans,rec(i,j+1));
-        return dp[i][j]=ans;
+    int lcs(string s1, string s2) {
+        int x=s1.size(),y=s2.size();
+        vector<vector<int>> dp(x+1,vector<int>(y+1,0));
+        //shifting one index to right as our base case is for -1 index
+        // so here ind i represents i-1 of string, as i<0 || j<0 was 0 ,so
+        for(int i=0;i<y;i++){
+            dp[0][i]=0;
+        }
+        for(int i=0;i<x;i++){
+            dp[i][0]=0;
+        }
+        
+        for(int i=1;i<=x;i++){
+            for(int j=1;j<=y;j++){
+               if(s1[i-1]==s2[j-1]){dp[i][j]=1+dp[i-1][j-1];}
+               else{dp[i][j]=max(dp[i-1][j],dp[i][j-1]);}                
+            }
+        }
+        return dp[x][y];
     }
     int longestPalindromeSubseq(string s) {
-        n=s.size();s1=s;reverse(s.begin(),s.end());s2=s;
-        dp.resize(n,vector<int>(n,-1));
-        return rec(0,0);
+        string t=s;
+        reverse(s.begin(),s.end());
+        return lcs(s,t);
     }
 };
