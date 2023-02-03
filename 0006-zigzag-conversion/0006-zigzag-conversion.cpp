@@ -1,33 +1,45 @@
 class Solution {
 public:
     string convert(string s, int n) {
+        if(n==1){return s;}
+        if(s.size()<=n){return s;}
         int m=s.length();
-        vector<vector<char>> a(n,vector<char>(m,'1'));
-        int cur=0;bool b=true;int j=0;
-        while(j<m){
-            if(b){
-            for(int i=0;i<n;i++){
-                a[i][j]=s[cur];cur++;
-                if(cur==m)break;
+        string ans="";int ind=0;
+        for(int i=0;i<n;i++){
+            ans+=s[i];ind=i;
+            int up=i,down=n-1-i;
+            if(i==0){
+                while(ind+2*down<m){
+                    ind += 2*down;
+                    ans += s[ind];
+                }
+                continue;
             }
-                j++;
+            else if(i==n-1){
+                while(ind+2*up<m){
+                    ind+=2*up;
+                    ans+=s[ind];
+                }
+                continue;
             }
-            else{
-                for(int i=n-2;i>0;i--){
-                    a[i][j]=s[cur];cur++;j++;
-                    if(cur==m)break;
+           else{ 
+            bool d=true;
+            while(ind<m){
+                cout<<ind<<endl;
+                if(d){
+                    if(down!=0){ind+=2*down;
+                    if(ind>=m)break;
+                    ans+=s[ind];}
+                    d=false;
+                }
+                else{
+                   if(up!=0){ind+=2*up;
+                    if(ind>=m)break;
+                    ans+=s[ind];}
+                    d=true;
                 }
             }
-            if(cur==m)break;
-            if(b){b=false;}
-            else{b=true;}
-        }
-        
-        string ans="";
-        for(int i=0;i<n;i++){
-            for(int k=0;k<j;k++){
-                if(a[i][k]!='1'){ans+=a[i][k];}
-            }
+           }
         }
         return ans;
     }
