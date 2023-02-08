@@ -14,7 +14,8 @@ public:
     }
     int minDistance(string s1, string s2) {
         n=s1.size();m=s2.size();
-        vector<vector<int>> dp(n+1,vector<int>(m+1,0));
+        int dp[n+1][m+1];
+        memset(dp,0,sizeof(dp));
         for(int j=0;j<=m;j++){dp[0][j]=j;}
         for(int i=0;i<=n;i++){dp[i][0]=i;}        
         for(int i=1;i<=n;i++){
