@@ -20,6 +20,7 @@ public:
    //  }
     int maxProfit(vector<int>& a) {
         int n=a.size();
+        //code same as to do any num of transac , only when we sell a stock , ew move to i+2 state as we cant buy on i+1
         vector<vector<int>> dp(n+2,vector<int>(2,0));
         dp[n][0]=dp[n][1]=0;
         for(int i=n-1;i>=0;i--){
