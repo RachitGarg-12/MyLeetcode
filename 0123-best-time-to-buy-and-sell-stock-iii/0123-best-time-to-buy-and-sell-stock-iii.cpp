@@ -14,22 +14,20 @@ public:
     // }
     int maxProfit(vector<int>& a) {
         int n=a.size();
-        int dp[n+1][2][3];
+        int dp[n+1][5];
         memset(dp,0,sizeof(dp));
         for(int i=n-1;i>=0;i--){
-            for(int buy=0;buy<=1;buy++){
-                for(int take=2;take>=1;take--){
+            for(int trans=3;trans>=0;trans--){
                     int profit=0;
-                    if(buy){
-                        profit=max((-a[i])+dp[i+1][0][take],dp[i+1][1][take]);
+                    if(trans%2==0){
+                        profit=max((-a[i])+dp[i+1][trans+1],dp[i+1][trans]);
                     }
                     else{
-                        profit=max(a[i]+dp[i+1][1][take-1],dp[i+1][0][take]);
+                        profit=max(a[i]+dp[i+1][trans+1],dp[i+1][trans]);
                     }
-                   dp[i][buy][take]=profit;
-                }
+                   dp[i][trans]=profit;
             }
         }
-        return dp[0][1][2];
+        return dp[0][0];
     }
 };
