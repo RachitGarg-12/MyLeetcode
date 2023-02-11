@@ -10,20 +10,16 @@ public:
     // }
     int lengthOfLIS(vector<int>& a) {
         n=a.size();
-        int dp[n+1][n+1];
-        memset(dp,0,sizeof(dp));
-        for(int i=n-1;i>=0;i--){
-            for(int j=i;j>=0;j--){
-                if(i<j){continue;}
-                int ans=dp[i+1][j];
-                if(a[i]>a[j]){ans=max(ans,1+dp[i+1][i]);}
-                dp[i][j]=ans;   
-            }
-        }
-        int res=0;
+        vector<int> dp(n,1);
+        int ans=0;
         for(int i=0;i<n;i++){
-           res=max(res,1+dp[i][i]);
+            for(int j=0;j<i;j++){
+                if(a[i]>a[j]){
+                    dp[i]=max(1+dp[j],dp[i]);
+                }
+            }
+            ans=max(ans,dp[i]);
         }
-        return res;
+        return ans;
     }
 };
