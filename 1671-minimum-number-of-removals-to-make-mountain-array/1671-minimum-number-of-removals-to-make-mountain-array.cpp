@@ -18,7 +18,7 @@ public:
 	            }
 	        }
 	    }	    
-	    for(int i=0;i<n;i++){
+	    for(int i=1;i<n-1;i++){
 	        if(dp1[i]>1 && dp2[i]>1){ans=max(ans,dp1[i]+dp2[i]-1);}
 	    }
 	    
