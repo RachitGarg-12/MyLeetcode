@@ -14,9 +14,7 @@ public:
     TreeNode* invertTree(TreeNode* root) {
         if(root==NULL || (root->right==NULL && root->left==NULL)){return root;}
         queue<TreeNode*> q;
-        swap(root->right,root->left);
-        if(root->left!=NULL){q.push(root->left);}
-        if(root->right!=NULL){q.push(root->right);}
+        q.push(root);
         while(!q.empty()){
             TreeNode *t=q.front();
             q.pop();
