@@ -25,7 +25,8 @@ class Solution
 	        ans.push_back(node);
 	        q.pop();
 	        for(auto i:adj[node]){
-	            if(indeg[i]>0){indeg[i]--;
+	            if(indeg[i]>0){
+	                indeg[i]--;
 	                if(indeg[i]==0){q.push(i);}
 	            }
 	        }
