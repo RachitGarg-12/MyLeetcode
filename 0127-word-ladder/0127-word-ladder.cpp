@@ -9,11 +9,11 @@ public:
             if(cur==endWord){b=true;}
             int req=0;
             for(int i=0;i<n;i++){
-                if(beginWord[i]!=wordList[j][i]){req++;}
+                if(beginWord[i]!=cur[i]){req++;}
             }
             if(req==1){
-                m[beginWord].push_back(wordList[j]);
-                m[wordList[j]].push_back(beginWord);
+                m[beginWord].push_back(cur);
+                m[cur].push_back(beginWord);
             }
         }
         if(b==false){return 0;}
