@@ -19,14 +19,12 @@ class Solution {
         queue<int> q;
         q.push(src);
         int level=1;
-        vector<int> vis(N,0);
-        vis[src]=1;
         while(!q.empty()){
             int sz=q.size();
             while(sz--){
                 int node=q.front();q.pop();
                 for(auto i:adj[node]){
-                    if(!vis[i]){q.push(i);dist[i]=level;vis[i]=1;}
+                    if(dist[i]==-1){q.push(i);dist[i]=level;}
                 }
             }
             level++;
