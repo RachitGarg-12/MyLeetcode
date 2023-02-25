@@ -33,15 +33,14 @@ public:
 //     }
 // };
     int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
-        unordered_map<string,int> pre;
+       set<string> pre,vis;
         for(auto i:wordList){
-            pre[i]=1;
+            pre.insert(i);
         }
         int n=beginWord.size();
         queue<string> q;
-        unordered_map<string,int> vis;
         q.push(beginWord);
-        vis[beginWord]=1;
+        vis.insert(beginWord);
         int level=2;
         while(!q.empty()){
             int sz=q.size();
@@ -52,9 +51,9 @@ public:
                 t=cur;
                for(char c='a';c<='z';c++){
                    t[i]=c;
-                   if(!vis[t] && pre[t]){
+                   if(pre.count(t)==1 && !vis.count(t)){
                        if(t==endWord){return level;}
-                       q.push(t);vis[t]=1;
+                       q.push(t);vis.insert(t);
                    }
                }
             }
