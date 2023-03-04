@@ -1,12 +1,26 @@
 class Solution {
 public:
     int strStr(string haystack, string needle) {
-        int n=haystack.size(),m=needle.size();int ans=-1;
-        for(int i=0;i<n;i++){
-            if(haystack[i]==needle[0]){
-                if(haystack.substr(i,m)==needle){ans=i;break;}
+        int hLen = haystack.length();
+        int nLen = needle.length();
+        int nIndex = 0;
+        for(int i=0; i<hLen; i++){
+            // as long as the characters are equal, increment needleIndex
+            if(haystack[i]==needle[nIndex]){
+                nIndex++;
+            }
+            else{
+                // start from the next index of previous start index
+                i=i-nIndex;
+                // needle should start from index 0
+                nIndex=0;
+            }
+            // check if needleIndex reached needle length
+            if(nIndex==nLen){
+                // return the first index
+                return i-nLen+1;
             }
         }
-        return ans;
+        return -1;
     }
 };
