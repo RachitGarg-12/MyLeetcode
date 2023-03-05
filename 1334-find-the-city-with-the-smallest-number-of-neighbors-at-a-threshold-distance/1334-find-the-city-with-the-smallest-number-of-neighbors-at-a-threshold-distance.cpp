@@ -1,7 +1,7 @@
 class Solution {
 public:
     int findTheCity(int n, vector<vector<int>>& edges, int distanceThreshold) {
-        vector<vector<vector<int>>> adj(n);
+        vector<pair<int,int>> adj[n];
         for(auto i:edges){
             adj[i[0]].push_back({i[1],i[2]});
             adj[i[1]].push_back({i[0],i[2]});
@@ -17,9 +17,9 @@ public:
                 int node=pq.top().second;
                 pq.pop();
                 for(auto i:adj[node]){
-                    if(dis+i[1]<dist[i[0]]){
-                        dist[i[0]]=dis+i[1];
-                        pq.push({dist[i[0]],i[0]});
+                    if(dis+i.second<dist[i.first]){
+                        dist[i.first]=dis+i.second;
+                        pq.push({dist[i.first],i.first});
                     }
                 }
             }
