@@ -1,6 +1,6 @@
 class DisjointSet{
-    vector<int> rank,parent,size;
     public:
+    vector<int> rank,parent,size;
     DisjointSet(int n){
         rank.resize(n+1,0);
         parent.resize(n+1,0);
@@ -64,7 +64,7 @@ public:
         }
         int ans=0;
         for(int i=1;i<=n;i++){
-            if(ds.findUpar(i)==i){ans++;}
+            if(ds.parent[i]==i){ans++;}
         }
         return ans;
     }
