@@ -58,7 +58,6 @@ public:
             }
         }
         DisjointSet ds(n);
-        unordered_set<int> par;
         for(auto i:edges){
             ds.unionBySize(i[0],i[1]);
         }
