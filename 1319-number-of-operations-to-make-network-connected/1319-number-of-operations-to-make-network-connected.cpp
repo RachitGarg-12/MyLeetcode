@@ -49,19 +49,16 @@ class Solution {
 public:
     int makeConnected(int n, vector<vector<int>>& connections) {
         DisjointSet ds(n);
+        int ext=0;
         for(auto i:connections){
+            if(ds.findUpar(i[0])==ds.findUpar(i[1])){ext++;continue;}
             ds.unionBySize(i[0],i[1]);
         }
         int req=-1;
         for(int i=0;i<n;i++){
             if(ds.parent[i]==i){req++;}
         }
-        if(req==0){return 0;}
-        int poss=0;
-        for(auto i:connections){
-            if(ds.parent[i[0]]!=i[0] && ds.parent[i[1]]!=i[1] && ds.parent[i[0]]==ds.parent[i[1]]){poss++;}
-        }
-        if(poss<req){return -1;}
+        if(ext<req){return -1;}
         return req;
     }
 };
