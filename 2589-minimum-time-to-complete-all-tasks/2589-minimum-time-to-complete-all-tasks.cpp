@@ -11,8 +11,10 @@ public:
             int st=tasks[i][0],en=tasks[i][1],dur=tasks[i][2];
             dur-=count(done.begin()+st,done.begin()+en+1,1);
             for(int j=en;dur>0;j--){
-                dur-=!done[j];
-                done[j]=1;
+                if(done[j]==0){
+                    dur--;
+                    done[j]=1;
+                }
             }
         }
         return count(done.begin(),done.end(),1);
