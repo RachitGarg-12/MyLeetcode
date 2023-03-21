@@ -7,7 +7,7 @@ public:
         for(int i=0;i<n;i++){
             if(a[i]==0){
                 st++;
-                if(i==n-1){ans += (long long)(st*(st+1))/2;}
+                if(i==n-1){ans += (long long)(st*(long long)(st+1))/2;}
             }
             else if(st>0){
                 ans += (long long)(st*(st+1))/2;
