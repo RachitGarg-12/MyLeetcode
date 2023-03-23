@@ -51,7 +51,8 @@ public:
         DisjointSet ds(n);
         int ext=0;
         for(auto i:connections){
-            if(ds.findUpar(i[0])==ds.findUpar(i[1])){ext++;continue;}
+            if(ds.findUpar(i[0])==ds.findUpar(i[1])){ext++;continue;}//if already same parent we dont need this edge as they are already connected
+            //we only take the edges which are needed to form connected component
             ds.unionBySize(i[0],i[1]);
         }
         int req=-1;
