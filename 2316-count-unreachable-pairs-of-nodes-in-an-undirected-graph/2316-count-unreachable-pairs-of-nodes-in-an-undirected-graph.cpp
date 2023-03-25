@@ -1,26 +1,28 @@
 class Solution {
 public:
-    typedef long long ll;
-    void dfs(int node, unordered_map<int,vector<int>>& m, ll& cnt, vector<int>& vis){
-        vis[node] = 1;
-        cnt++;
-        for(auto& i: m[node]){
-            if(vis[i]==0) dfs(i,m,cnt,vis);   
+
+    void dfs(int i,vector<vector<int>> &adj,long long &len,vector<int> &vis){
+        vis[i]=1;
+        len++;
+        for(auto& j:adj[i]){
+            if(!vis[j]){dfs(j,adj,len,vis);}
         }
     }
     long long countPairs(int n, vector<vector<int>>& edges) {
-        unordered_map<int,vector<int>> m; // making adjacency list
-        for(int i=0;i<edges.size();i++){
-            m[edges[i][0]].push_back(edges[i][1]);
-            m[edges[i][1]].push_back(edges[i][0]);
+        vector<vector<int>> adj(n);
+        for(auto& i:edges){
+            adj[i[0]].push_back(i[1]);
+            adj[i[1]].push_back(i[0]);
         }
-        ll ans = ((ll)n*(n-1))/2;
         vector<int> vis(n,0);
+        long long t=(long long)n;
+        long long ans= (t*(t-1))/2;
+        
         for(int i=0;i<n;i++){
-            if(vis[i]==0){ // as node is not visited, we find the no. of nodes in current component.
-                ll cnt = 0;
-                dfs(i,m,cnt,vis);
-                ans -= (cnt*(cnt-1))/2;
+            if(!vis[i]){
+                long long len=0;
+                dfs(i,adj,len,vis);
+                ans -=(long long)(len*(len-1))/2;
             }
         }
         return ans;
