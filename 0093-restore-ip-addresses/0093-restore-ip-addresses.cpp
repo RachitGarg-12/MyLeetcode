@@ -19,7 +19,8 @@ void solve(string s,vector<string>& ans,string st,int idx,int dot){
             st.push_back('.');
             solve(s,ans,st,i+1,dot+1);
             st.pop_back();
-        }else{break;}
+        }
+        else{return;}
     }
 }
 public:
