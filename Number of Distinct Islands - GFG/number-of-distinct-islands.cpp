@@ -10,13 +10,21 @@ using namespace std;
 class Solution {
   public:
     int n,m;
+    bool valid(int i,int j){
+        return (i>=0 && i<n && j>=0 && j<m);
+    }
     void dfs(int r,int c,int i,int j,vector<vector<int>>& grid,vector<vector<int>> &vis,vector<pair<int,int>> &v){
         vis[i][j]=1;
         v.push_back({r-i,c-j});
-        if(i-1>=0 && grid[i-1][j]==1 && vis[i-1][j]==0){dfs(r,c,i-1,j,grid,vis,v);}
-        if(i+1<n && grid[i+1][j]==1 && vis[i+1][j]==0){dfs(r,c,i+1,j,grid,vis,v);}
-        if(j-1>=0 && grid[i][j-1]==1 && vis[i][j-1]==0){dfs(r,c,i,j-1,grid,vis,v);}
-        if(j+1<m && grid[i][j+1]==1 && vis[i][j+1]==0){dfs(r,c,i,j+1,grid,vis,v);}
+        int dx[]={-1,0,0,1};
+        int dy[]={0,-1,1,0};
+        for(int k=0;k<4;k++){
+            int nr=i+dx[k];
+            int nc=j+dy[k];
+            if(valid(nr,nc)){
+                if(!vis[nr][nc] && grid[nr][nc]==1){dfs(r,c,nr,nc,grid,vis,v);}
+            }
+        }
     }
     int countDistinctIslands(vector<vector<int>>& grid) {
         n=grid.size(),m=grid[0].size();
