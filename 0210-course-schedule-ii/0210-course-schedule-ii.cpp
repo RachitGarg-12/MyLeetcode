@@ -3,7 +3,7 @@ public:
     vector<int> findOrder(int V, vector<vector<int>>& prerequisites) {
         vector<vector<int>> adj(V);
         for(auto i:prerequisites){
-            adj[i[0]].push_back(i[1]);
+            adj[i[1]].push_back(i[0]);
         }
         vector<int> indeg(V,0);
 	    queue<int> q;
@@ -28,7 +28,7 @@ public:
 	        }
 	    }
         if(ans.size()!=V){return {};}
-        reverse(ans.begin(),ans.end());
+        // reverse(ans.begin(),ans.end());
         return ans;
     }
 };
