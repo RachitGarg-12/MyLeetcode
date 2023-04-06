@@ -15,24 +15,11 @@ public:
         m=board[0].size();
         vector<vector<int>> vis(n,vector<int>(m,0));
         for(int i=0;i<n;i++){
-                if(!vis[i][0] && board[i][0]==1){
-                    dfs(i,0,board,vis);
+            for(int j=0;j<m;j++){
+                if(i==0 || i==n-1 || j==0 || j==m-1){
+                    if(board[i][j]==1){dfs(i,j,board,vis);}
                 }
-        }
-        for(int j=0;j<m;j++){
-                if(!vis[0][j] && board[0][j]==1){
-                    dfs(0,j,board,vis);
-                }
-        }
-        for(int j=0;j<m;j++){
-                if(!vis[n-1][j] && board[n-1][j]==1){
-                    dfs(n-1,j,board,vis);
-                }
-        }
-        for(int i=0;i<n;i++){
-            if(!vis[i][m-1] && board[i][m-1]==1){
-                    dfs(i,m-1,board,vis);
-                }
+            }
         }
         int ans=0;
         for(int i=0;i<n;i++){
