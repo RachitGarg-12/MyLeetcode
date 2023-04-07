@@ -9,32 +9,21 @@ using namespace std;
 
 class Solution{
     public:
-    string findOrder(string dict[], int n, int k) {
-        unordered_map<char,unordered_set<char>> adj;
-        for(int i=0;i<n-1;i++){
-            int j=i+1;
-            int a=0,b=0;int l=min(dict[i].size(),dict[j].size());
-            while(a<l && b<l && dict[i][a]==dict[j][b]){
-                a++;b++;
-            }
-            if(a==l || b==l){continue;}
-            adj[dict[i][a]].insert(dict[j][b]);
-        }
-
-        unordered_map<char,int> indeg;
-	    queue<char> q;
-	    for(auto i:adj){
-	        for(auto j:i.second){
+    vector<int> topoSort(int V, vector<int> adj[]) {   
+        vector<int> indeg(V,0);
+	    queue<int> q;
+	    for(int i=0;i<V;i++){
+	        for(auto j:adj[i]){
 	            indeg[j]++;
 	        }
 	    }
-	    for(int i=0;i<k;i++){
-	        if(indeg[('a'+i)]==0){q.push(('a'+i));}
+	    for(int i=0;i<V;i++){
+	        if(indeg[i]==0){q.push(i);}
 	    }
-	    string ans="";
+	    vector<int> ans;
 	    while(!q.empty()){
-	        char node=q.front();
-	        ans+=node;
+	        int node=q.front();
+	        ans.push_back(node);
 	        q.pop();
 	        for(auto i:adj[node]){
 	            if(indeg[i]>0){
@@ -43,8 +32,23 @@ class Solution{
 	            }
 	        }
 	    }
-
 	    return ans;
+	}
+    string findOrder(string dict[], int n, int k) {
+        vector<int> adj[k];
+        for(int i=0;i<n-1;i++){
+            int j=i+1;
+            int a=0,b=0;int l=min(dict[i].size(),dict[j].size());
+            while(a<l && b<l && dict[i][a]==dict[j][b]){
+                a++;b++;
+            }
+            if(a==l || b==l){continue;}
+            adj[dict[i][a]-'a'].push_back(dict[j][b]-'a');
+        }
+        vector<int> v=topoSort(k,adj);
+        string ans="";
+        for(auto i:v){ans+=char('a'+i);}
+        return ans;
     }
 };
 
