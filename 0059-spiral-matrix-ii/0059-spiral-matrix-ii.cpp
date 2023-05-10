@@ -1,47 +1,30 @@
 class Solution {
 public:
     vector<vector<int>> generateMatrix(int n) {
-        vector<vector<int>> ans(n,vector<int>(n,-1));
-        bool rf=true,cd=false,rb=false,cu=false;
-        int cur=1;
-        for(int i=0;i<n;i++){ans[0][i]=cur;cur++;}
-        for(int i=1;i<n;i++){ans[i][n-1]=cur;cur++;}
-        if(n-1!=0){for(int i=n-2;i>=0;i--){ans[n-1][i]=cur;cur++;}}
-        if(n-1!=0){for(int i=n-2;i>0;i--){ans[i][0]=cur;cur++;}}
-        int i=1,j=1;
-        if(i>=n || j>=n){ return ans;}
+     int r1=0,r2=n-1;
+    int c1=0,c2=n-1;
+    int val=0;
+    
+    vector<vector<int>>v(n,vector<int>(n));
+    
+    while(r1<=r2 && c1<=c2)
+    {
+        for(int i=c1;i<=c2;i++)//left to right move,row is fixed
+            v[r1][i] = ++val;
+       
+        for(int i=r1+1;i<=r2;i++) //top to bootom move ,colomn is fixed
+            v[i][c2] = ++val;
+       
+        for(int i=c2-1;i>=c1;i--) // right to left move,row is fixed
+            v[r2][i] = ++val;
         
-        while(ans[i][j]==-1){
-            if(rf==true){
-                if(ans[i][j]!=-1){break;}
-                for(int k=j;k<n;k++){
-                    if(ans[i][k]!=-1){i++;j=k-1;cd=true;rf=false;break;}
-                    ans[i][k]=cur;cur++;
-                }
-            }
-            if(cd==true){
-                if(ans[i][j]!=-1){break;}
-                for(int k=i;k<n;k++){
-                    if(ans[k][j]!=-1){j--;i=k-1;rb=true;cd=false;break;}
-                    ans[k][j]=cur;cur++;
-                }
-            }
-            if(rb==true){
-                if(ans[i][j]!=-1){break;}
-                for(int k=j;k>=0;k--){
-                    if(ans[i][k]!=-1){i--;j=k+1;cu=true;rb=false;break;}
-                    ans[i][k]=cur;cur++;
-                }
-            }
-            if(cu==true){
-                if(ans[i][j]!=-1){break;}
-                for(int k=i;k>=0;k--){
-                    if(ans[k][j]!=-1){j++;i=k+1;rf=true;cu=false;break;}
-                    ans[k][j]=cur;cur++;
-                }
-            }
-            
-        }
-        return ans;
+        for(int i=r2-1;i>r1;i--) // bottom to up move ,colomn is fixed
+            v[i][c1] = ++val;
+        r1++;
+        c1++;
+        r2--;
+        c2--;
+    }
+    return v;        
     }
 };
