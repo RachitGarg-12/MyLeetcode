@@ -12,16 +12,15 @@
 class Solution {
 public:
     int maxi=-1e9;
-    int height(TreeNode* root){
+    int mx(TreeNode* root){
         if(root==NULL){return 0;}
-        int lh=max(height(root->left),0);
-        int rh=max(height(root->right),0);
-        // cout<<root->val<<" "<<lh<<" "<<rh<<endl;
+        int lh=max(mx(root->left),0);
+        int rh=max(mx(root->right),0);
         maxi=max(maxi,root->val+lh+rh);
         return root->val+max(lh,rh);
     }
     int maxPathSum(TreeNode* root) {
-        int l=height(root);
+        int l=mx(root);
         return maxi;
     }
 };
