@@ -12,7 +12,20 @@ public:
     }
     int maxUncrossedLines(vector<int>& nums1, vector<int>& nums2) {
         n=nums1.size();m=nums2.size();
-        vector<vector<int>>dp(n,vector<int>(m,-1));
-        return f(0,0,nums1,nums2,dp);
+        vector<vector<int>>dp(n+1,vector<int>(m+1,0));
+        for(int i=0;i<m;i++){dp[n][i]=0;}
+        for(int i=0;i<n;i++){dp[i][m]=0;}
+        
+        for(int i=n-1;i>=0;i--){
+            for(int j=m-1;j>=0;j--){
+               int ans=0;
+               if(nums1[i]==nums2[j]){ans=1+dp[i+1][j+1];}
+               ans=max(ans,dp[i+1][j]);
+               ans=max(ans,dp[i][j+1]);
+               dp[i][j]=ans;
+            }
+        }
+        return dp[0][0];
+        
     }
 };
