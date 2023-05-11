@@ -12,7 +12,8 @@ public:
     }
     int maxUncrossedLines(vector<int>& nums1, vector<int>& nums2) {
         n=nums1.size();m=nums2.size();
-        vector<vector<int>>dp(n+1,vector<int>(m+1,0));
+        int dp[n+1][m+1];
+        memset(dp,0,sizeof(dp));
         for(int i=0;i<m;i++){dp[n][i]=0;}
         for(int i=0;i<n;i++){dp[i][m]=0;}
         
