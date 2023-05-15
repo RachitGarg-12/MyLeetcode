@@ -11,24 +11,19 @@
 class Solution {
 public:
     ListNode* swapNodes(ListNode* head, int k) {
-        int n=0;
-        ListNode *temp=head;
-        ListNode *front,*back;
-        while(temp!=NULL){
-            n++;
-            if(n==k){front=temp;}
-            temp=temp->next;
+        ListNode *left_ptr = head, *right_ptr = head;
+        for (int i = 1; i <= k-1; i++) {
+            right_ptr = right_ptr->next;
         }
-        temp=head;
-        int i=0;
-        while(i<(n-k)){
-            i++;
-            temp=temp->next;
+        
+        ListNode *end_ptr = right_ptr;//kth node , n-k nodes left till end we move forward n-k-1 from head to reach kth node from last
+        while (right_ptr->next) {
+            left_ptr = left_ptr->next;
+            right_ptr = right_ptr->next;
         }
-        back=temp;
-        int t=front->val;
-        front->val=back->val;
-        back->val=t;
+        
+        swap(end_ptr->val, left_ptr->val);
+        
         return head;
     }
 };
