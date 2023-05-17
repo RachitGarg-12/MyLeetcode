@@ -2,14 +2,13 @@ class Solution {
 public:
     int timer=1;
     vector<vector<int>> bridges;
-    void dfs(int node,int parent,vector<vector<int>> &adj,vector<int> &vis,int tin[],int low[]){
-        vis[node]=1;
+    void dfs(int node,int parent,vector<vector<int>> &adj,int tin[],int low[]){
         tin[node]=low[node]=timer;
         timer++;
         for(auto it:adj[node]){
             if(it==parent){continue;}
-            if(!vis[it]){
-                dfs(it,node,adj,vis,tin,low);
+            if(tin[it]==-1){
+                dfs(it,node,adj,tin,low);
                 low[node]=min(low[node],low[it]);
                 //node---it
                 if(low[it]>tin[node]){
@@ -28,9 +27,9 @@ public:
             adj[i[1]].push_back(i[0]);
         }
         int tin[n];
+        memset(tin,-1,sizeof(tin));
         int low[n];
-        vector<int> vis(n,0);
-        dfs(0,-1,adj,vis,tin,low);
+        dfs(0,-1,adj,tin,low);
         return bridges;
     }
 };
