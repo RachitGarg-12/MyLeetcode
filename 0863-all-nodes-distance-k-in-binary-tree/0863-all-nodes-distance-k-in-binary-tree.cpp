@@ -9,49 +9,35 @@
  */
 class Solution {
 public:
-    void dfs(TreeNode* p,TreeNode* root,TreeNode* target,map<TreeNode*,TreeNode*>&par){
+    void find_par(TreeNode* p,TreeNode* root,TreeNode* target,map<TreeNode*,TreeNode*>&par){
         par[root]=p;
         if(root==target){return;}
-        if(root->left){dfs(root,root->left,target,par);}
-        if(root->right){dfs(root,root->right,target,par);}
+        if(root->left){find_par(root,root->left,target,par);}
+        if(root->right){find_par(root,root->right,target,par);}
     }
-    void dfs2(map<TreeNode*,TreeNode*>&par,TreeNode* last,TreeNode* cur,int height,int k,vector<int>&ans){
+    void bfs(map<TreeNode*,TreeNode*>&par,TreeNode* cur,int k,vector<int>&ans){
         queue<TreeNode*> q;
         q.push(cur);
-        int lev=height;
-        while(!q.empty() && lev<=k){
-            int l=q.size();
-            while(l--){
-                TreeNode *t=q.front();q.pop();
-                if(t==last){continue;}
-                if(lev==k){ans.push_back(t->val);}
-                if(t->left){q.push(t->left);}
-                if(t->right){q.push(t->right);}
-            }
-            lev++;
-        }
-        if(height+1<=k && par[cur]!=NULL){dfs2(par,cur,par[cur],height+1,k,ans);}
-    }
-    vector<int> distanceK(TreeNode* root, TreeNode* target, int k) {
-        map<TreeNode*,TreeNode*> par;
-        dfs(NULL,root,target,par);
-        vector<int> ans;
-        if(par[target]!=NULL){
-            dfs2(par,target,par[target],1,k,ans);
-        }
-        queue<TreeNode*> q;
-        q.push(target);
+        map<TreeNode*,int> vis;
         int lev=0;
         while(!q.empty() && lev<=k){
             int l=q.size();
             while(l--){
                 TreeNode *t=q.front();q.pop();
+                vis[t]=1;
                 if(lev==k){ans.push_back(t->val);}
-                if(t->left){q.push(t->left);}
-                if(t->right){q.push(t->right);}
+                if(t->left && !vis[t->left]){q.push(t->left);}
+                if(t->right && !vis[t->right]){q.push(t->right);}
+                if(par[t]!=NULL && !vis[par[t]]){q.push(par[t]);}
             }
             lev++;
         }
+    }
+    vector<int> distanceK(TreeNode* root, TreeNode* target, int k) {
+        map<TreeNode*,TreeNode*> par;
+        find_par(NULL,root,target,par);
+        vector<int> ans;
+        bfs(par,target,k,ans);
         return ans;
     }
 };
