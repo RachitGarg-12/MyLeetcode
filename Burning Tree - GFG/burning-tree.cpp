@@ -98,7 +98,7 @@ class Solution {
   public:
     void find_par(Node* p,Node* root,int tar,map<Node*,Node*>&par,Node*& target){
         par[root]=p;
-        if(root->data==tar){target=root;}
+        if(root->data==tar){target=root;return;}
         if(root->left){find_par(root,root->left,tar,par,target);}
         if(root->right){find_par(root,root->right,tar,par,target);}
     }
