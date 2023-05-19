@@ -96,12 +96,11 @@ struct Node {
 */
 class Solution {
   public:
-    Node *target;
-    void dfs(Node* p,Node* root,int tar,map<Node*,Node*>&par){
+    void dfs(Node* p,Node* root,int tar,map<Node*,Node*>&par,Node*& target){
         par[root]=p;
         if(root->data==tar){target=root;return;}
-        if(root->left){dfs(root,root->left,tar,par);}
-        if(root->right){dfs(root,root->right,tar,par);}
+        if(root->left){dfs(root,root->left,tar,par,target);}
+        if(root->right){dfs(root,root->right,tar,par,target);}
     }
     void dfs2(map<Node*,Node*>&par,Node* last,Node* cur,int height,int&ans){
         queue<Node*> q;
@@ -123,8 +122,8 @@ class Solution {
     int minTime(Node* root, int tar) 
     {
         map<Node*,Node*> par;
-        // Node *target;
-        dfs(NULL,root,tar,par);
+        Node *target;
+        dfs(NULL,root,tar,par,target);
         int ans=0;
         if(par[target]!=NULL){
             dfs2(par,target,par[target],1,ans);
