@@ -96,51 +96,37 @@ struct Node {
 */
 class Solution {
   public:
-    void dfs(Node* p,Node* root,int tar,map<Node*,Node*>&par,Node*& target){
+    void find_par(Node* p,Node* root,int tar,map<Node*,Node*>&par,Node*& target){
         par[root]=p;
-        if(root->data==tar){target=root;return;}
-        if(root->left){dfs(root,root->left,tar,par,target);}
-        if(root->right){dfs(root,root->right,tar,par,target);}
+        if(root->data==tar){target=root;}
+        if(root->left){find_par(root,root->left,tar,par,target);}
+        if(root->right){find_par(root,root->right,tar,par,target);}
     }
-    void dfs2(map<Node*,Node*>&par,Node* last,Node* cur,int height,int&ans){
+    void bfs(map<Node*,Node*>&par,Node* cur,int&ans){
         queue<Node*> q;
         q.push(cur);
-        int lev=height;
-        while(!q.empty()){
-            int l=q.size();
-            ans=max(ans,lev);
-            while(l--){
-                Node *t=q.front();q.pop();
-                if(t==last){continue;}
-                if(t->left){q.push(t->left);}
-                if(t->right){q.push(t->right);}
-            }
-            lev++;
-        }
-        if(par[cur]!=NULL){dfs2(par,cur,par[cur],height+1,ans);}
-    }
-    int minTime(Node* root, int tar) 
-    {
-        map<Node*,Node*> par;
-        Node *target;
-        dfs(NULL,root,tar,par,target);
-        int ans=0;
-        if(par[target]!=NULL){
-            dfs2(par,target,par[target],1,ans);
-        }
-        queue<Node*> q;
-        q.push(target);
+        map<Node*,int> vis;
         int lev=0;
         while(!q.empty()){
             int l=q.size();
             ans=max(ans,lev);
             while(l--){
                 Node *t=q.front();q.pop();
-                if(t->left){q.push(t->left);}
-                if(t->right){q.push(t->right);}
+                vis[t]=1;
+                if(t->left && !vis[t->left]){q.push(t->left);}
+                if(t->right && !vis[t->right]){q.push(t->right);}
+                if(par[t]!=NULL && !vis[par[t]]){q.push(par[t]);}
             }
             lev++;
         }
+    }
+    int minTime(Node* root, int tar) 
+    {
+        map<Node*,Node*> par;
+        Node *target;
+        find_par(NULL,root,tar,par,target);
+        int ans=0;
+        bfs(par,target,ans);
         return ans;
     }
 };
