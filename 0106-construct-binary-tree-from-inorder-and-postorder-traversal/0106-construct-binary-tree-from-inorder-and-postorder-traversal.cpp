@@ -11,23 +11,26 @@
  */
 class Solution {
 public:
-    TreeNode* buildTreeHelper(vector<int>& inorder, vector<int>& postorder, unordered_map<int, int>& ump, int& rootIdx, int left, int right) {
-        if(left > right) return NULL;
-        
-        int pivot = ump[postorder[rootIdx]];
-        TreeNode* node = new TreeNode(postorder[rootIdx]);
-        rootIdx--;
 
-        node->right = buildTreeHelper(inorder, postorder, ump, rootIdx, pivot+1, right);
-        node->left = buildTreeHelper(inorder, postorder, ump, rootIdx, left, pivot-1);
-        return node;
-    }
 
     TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
-        int rootIdx = postorder.size()-1;
-        unordered_map<int, int> ump;
-        for(int i=0;i<inorder.size();i++) ump[inorder[i]] = i;
-
-        return buildTreeHelper(inorder, postorder, ump, rootIdx, 0, inorder.size()-1);
+       int n=inorder.size();
+        map<int,int> ind;
+        for(int i=0;i<n;i++){
+            ind[inorder[i]]=i;
+        }
+        TreeNode *root= build(postorder,0,n-1,inorder,0,n-1,ind);
+        return root;
+        
+    }
+    TreeNode *build(vector<int>& postorder,int poststart,int postend,vector<int>& inorder,int instart,int inend,map<int,int>&ind){
+        if(poststart > postend || instart > inend){return NULL;}
+        TreeNode *root=new TreeNode(postorder[postend]);
+        int inroot=ind[root->val];
+        int numsleft=inroot-instart-1;
+        root->left = build(postorder,poststart,poststart+numsleft,inorder,instart,inroot-1,ind);
+        root->right = build(postorder,poststart+numsleft+1,postend-1,inorder,inroot+1,inend,ind);
+        
+        return root;
     }
 };
