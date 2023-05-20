@@ -18,12 +18,11 @@ public:
         q.push(root);
         while(!q.empty()){
             TreeNode *cur=q.front();q.pop();
-            if(cur==NULL){serial+='#';serial+=',';continue;}
+            if(cur==NULL){serial+="#,";continue;}
             else{serial+=to_string(cur->val)+',';}
             q.push(cur->left);
             q.push(cur->right);
         }
-        serial.pop_back();
         return serial;
     }
 
