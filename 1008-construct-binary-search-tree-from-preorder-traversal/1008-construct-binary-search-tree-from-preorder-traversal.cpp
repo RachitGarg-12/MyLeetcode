@@ -12,19 +12,18 @@
 class Solution {
 public:
     TreeNode* bstFromPreorder(vector<int>& preorder) {
-        return build(preorder);
+        int n=preorder.size();
+        return build(0,n-1,preorder);
     }
-    TreeNode* build(vector<int> preorder){
-        if(preorder.size()==0){return NULL;}
-        TreeNode *root=new TreeNode(preorder[0]);
-        int l=preorder.size();
-        vector<int> left,right;
-        for(int i=1;i<l;i++){
-            if(preorder[i]<root->val){left.push_back(preorder[i]);}
-            else{right.push_back(preorder[i]);}
+    TreeNode* build(int l,int r,vector<int> &preorder){
+        if(r-l<0){return NULL;}
+        TreeNode *root=new TreeNode(preorder[l]);
+        int ind=r;
+        for(int i=l+1;i<=r;i++){
+            if(preorder[i]>root->val){ind=i-1;break;}
         }
-        root->left=build(left);
-        root->right=build(right);
+        root->left=build(l+1,ind,preorder);
+        root->right=build(ind+1,r,preorder);
         return root;
     }
 };
