@@ -1,6 +1,6 @@
 class Solution {
 public:
-    int dp[20]{};
+    int dp[20];
     int numTrees(int n) {
         if(n <= 1) return 1;
         if(dp[n]) return dp[n];
