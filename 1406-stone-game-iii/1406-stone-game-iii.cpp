@@ -2,7 +2,8 @@ class Solution {
 public:
     string stoneGameIII(vector<int>& a) {
         int n=a.size();
-        vector<int> dp(3,0);
+        int dp[3];
+        memset(dp,0,sizeof(dp));
         for(int i=n-1;i>=0;i--){
             int one=a[i]-dp[(i+1)%3];
             int two=-1e9;
