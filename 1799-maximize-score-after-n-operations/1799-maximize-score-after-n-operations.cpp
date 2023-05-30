@@ -10,7 +10,7 @@ public:
         num = num | (1 << bitIdx);
     }
     int solve(vector<int>&nums,  map<int, int>&mp, int visited, int operation){
-        if(operation>nums.size()){return 0;}
+        if(operation>nums.size()/2){return 0;}
         if (mp.count(visited)) return mp[visited]; //use stored result
         int maxScore = 0;
         for (int i = 0; i < nums.size() - 1; i++){
