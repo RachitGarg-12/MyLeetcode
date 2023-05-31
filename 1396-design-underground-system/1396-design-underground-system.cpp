@@ -1,6 +1,6 @@
 class UndergroundSystem {
 public:
-    map<int,pair<string,int>> pass;
+    unordered_map<int,pair<string,int>> pass;
     map<pair<string,string>,vector<int>> m;
     UndergroundSystem() {
     }
