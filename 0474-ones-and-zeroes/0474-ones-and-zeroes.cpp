@@ -1,44 +1,20 @@
 class Solution {
 public:
-    int l;
-    int mxz,mxo;
-    // int dp[601][101][101];
-    // int f(int i,vector<string>& strs,map<string,pair<int,int>> &freq,int curz,int curo){
-    //     if(i==l){return 0;}
-    //     if(dp[i][curz][curo]!=-1){return dp[i][curz][curo];}
-    //     int ans=f(i+1,strs,freq,curz,curo);
-    //     int zer=freq[strs[i]].first,one=freq[strs[i]].second;
-    //     if(curz+zer<=mxz && curo+one<=mxo){
-    //         ans=max(ans,1+f(i+1,strs,freq,curz+zer,curo+one));
-    //     }
-    //     return dp[i][curz][curo]=ans;
-    // }
+
     int findMaxForm(vector<string>& strs, int m, int n) {
-        mxz=m;mxo=n;
-        l=strs.size();
-        map<string,pair<int,int>> freq;
-        for(auto i:strs){
-            int z=0,o=0;
-            for(auto j:i){
-                if(j=='0'){z++;}
-                else{o++;}
-            }
-            freq[i]={z,o};
-        }
-        int dp[l+1][m+1][n+1];
-        for(int i=l;i>=0;i--){
-            for(int curz=m;curz>=0;curz--){
-                for(int curo=n;curo>=0;curo--){
-                    if(i==l){dp[i][curz][curo]=0;continue;}
-                    int ans=dp[i+1][curz][curo];
-                    int zer=freq[strs[i]].first,one=freq[strs[i]].second;
-                    if(curz+zer<=mxz && curo+one<=mxo){
-                        ans=max(ans,1+dp[i+1][curz+zer][curo+one]);
-                    }
-                    dp[i][curz][curo]=ans;                    
-                }
-            }
-        }
-        return dp[0][0][0];
+	// dp[i][j] will store Max subset size possible with zeros_limit = i, ones_limit = j
+	vector<vector<int> > dp(m + 1, vector<int>(n + 1));
+	for(auto& str : strs) {
+		// count zeros & ones frequency in current string            
+		int zeros = count(begin(str), end(str), '0'), ones = size(str) - zeros; 
+		// which positions of dp will be updated ?
+		// Only those having atleast `zeros` 0s(i >= zeros) and `ones` 1s(j >= ones)
+		for(int i = m; i >= zeros; i--)
+			for(int j = n; j >= ones; j--)                    
+				dp[i][j] = max(dp[i][j], // either leave the current string
+							   dp[i - zeros][j - ones] + 1); // or take it by adding 1 to optimal solution of remaining balance
+		// at this point each dp[i][j] will store optimal value for items considered till now & having constraints i and j respectively
+	}
+	return dp[m][n];
     }
 };
