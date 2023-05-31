@@ -14,13 +14,8 @@ public:
         string start=pass[id].first;
         int ts=pass[id].second;
         string concat=start+','+stationName;
-        if(m.find(concat)!=m.end()){
-            m[concat].first+=t-ts;
-            m[concat].second++;
-        }
-        else{
-            m[concat]={t-ts,1};
-        }
+        m[concat].first+=t-ts;
+        m[concat].second++;
     }
     
     double getAverageTime(string startStation, string endStation) {
