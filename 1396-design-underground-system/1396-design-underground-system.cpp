@@ -1,9 +1,8 @@
 class UndergroundSystem {
 public:
-    vector<pair<string,int>> pass;
+    map<int,pair<string,int>> pass;
     map<pair<string,string>,vector<int>> m;
     UndergroundSystem() {
-        pass.resize(1000001);
     }
     
     void checkIn(int id, string stationName, int t) {
