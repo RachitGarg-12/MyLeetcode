@@ -13,6 +13,7 @@ public:
     void checkOut(int id, string stationName, int t) {
         string start=pass[id].first;
         int ts=pass[id].second;
+        pass.erase(id);
         string concat=start+','+stationName;
         if(m.find(concat)!=m.end()){
             m[concat].first+=t-ts;
