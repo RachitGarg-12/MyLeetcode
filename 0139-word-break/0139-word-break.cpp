@@ -2,7 +2,6 @@ class Solution {
 public:
     int n;
     bool f(int i,string &s,unordered_map<string,bool> &dict,vector<int> &dp){
-        if(i==n){return false;}
         if(dp[i]!=-1){return dp[i];}
         string pre="";
         bool ans=false;
