@@ -7,28 +7,25 @@ class Solution
 {
 	public:
 	//Function to return list containing vertices in Topological order. 
-	vector<int> indeg;
-	queue<int> q;
 	vector<int> topoSort(int V, vector<int> adj[]) 
-	{   indeg.resize(V,0);
+	{
+	    vector<int> indeg(V);
 	    for(int i=0;i<V;i++){
 	        for(auto j:adj[i]){
 	            indeg[j]++;
 	        }
 	    }
+	    queue<int> q;
 	    for(int i=0;i<V;i++){
 	        if(indeg[i]==0){q.push(i);}
 	    }
 	    vector<int> ans;
 	    while(!q.empty()){
-	        int node=q.front();
-	        ans.push_back(node);
-	        q.pop();
-	        for(auto i:adj[node]){
-	            if(indeg[i]>0){
-	                indeg[i]--;
-	                if(indeg[i]==0){q.push(i);}
-	            }
+	        int cur=q.front();q.pop();
+	        ans.push_back(cur);
+	        for(auto i:adj[cur]){
+	            indeg[i]--;
+	            if(indeg[i]==0){q.push(i);}
 	        }
 	    }
 	    return ans;
