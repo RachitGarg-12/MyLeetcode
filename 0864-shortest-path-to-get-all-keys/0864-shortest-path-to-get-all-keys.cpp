@@ -1,57 +1,57 @@
 class Solution {
 public:
     int shortestPathAllKeys(vector<string>& grid) {
-        int sr, sc, key_count = 0, n = grid.size(), m = grid[0].length();
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                char ch = grid[i][j];
-                if (ch == '@') sr = i, sc = j;
-                if (ch >= 'a' && ch <= 'z') key_count = ((1 << (ch - 'a')) | key_count);
+        int n=grid.size(),m=grid[0].size();
+        queue<pair<pair<int,int>,pair<int,int>>> q;
+        int k=0;
+        int sr,sc;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                char ch=grid[i][j];
+                if(ch=='@'){sr=i;sc=j;}
+                else if(ch>='a' && ch<='f'){
+                   k|=(1<<(ch-'a'));
+                }
             }
         }
-
-        int key = 0, ans = -1;
-        queue<pair<pair<int, int>, pair<int, int>>> q;
-        q.push({{sr, sc}, {0, 0}});
-        int vis[n + 1][m + 1][key_count + 1];
-        memset(vis, 0, sizeof(vis));
-        vis[sr][sc][key] = 1;
-        while (!q.empty()) {
-            auto it = q.front();
-            q.pop();
-            int row = it.first.first, col = it.first.second, koi = it.second.first, steps = it.second.second;
-            if (koi == key_count) {
-                return steps;
-            }
-            vector<int> dr = { -1, 0, 1, 0}, dc = {0, 1, 0, -1};
-            for (int i = 0; i < 4; i++) {
-                int nrow = row + dr[i], ncol = col + dc[i];
-                if (nrow < 0 || nrow >= n || ncol < 0 || ncol >= m || grid[nrow][ncol] == '#') continue;
-                char ch = grid[nrow][ncol];
-                if (ch >= 'A' && ch <= 'F') {
-                    if ((koi >> (ch - 'A')) & 1) { // set
-                        if (!vis[nrow][ncol][koi]) {
-                            q.push({{nrow, ncol}, {koi, steps + 1}});
-                            vis[nrow][ncol][koi] = 1;
+        int dx[]={-1,0,0,1};
+        int dy[]={0,-1,1,0};
+        q.push({{sr,sc},{0,0}});
+        int vis[n+1][m+1][k+1];
+        memset(vis,0,sizeof(vis));
+        vis[sr][sc][0]=1;
+        while(!q.empty()){
+            auto a=q.front();q.pop();
+            int x=a.first.first,y=a.first.second,koi=a.second.first,t=a.second.second;
+            for(int i=0;i<4;i++){
+                int nx=x+dx[i];
+                int ny=y+dy[i];
+                if(nx<0 || nx>=n || ny<0 || ny>=m  || grid[nx][ny]=='#'){continue;}
+                char ch=grid[nx][ny];
+                if(ch>='a' && ch<='f'){
+                    int res=(1<<ch-'a')|koi;
+                    if(res==k){return t+1;}
+                    if(!vis[nx][ny][res]){
+                        q.push({{nx,ny},{res,t+1}});
+                        vis[nx][ny][res]=1;
+                    }
+                }
+                else if(ch>='A' && ch<='F'){
+                    if((koi>>ch-'A')&1){
+                        if(!vis[nx][ny][koi]){
+                            q.push({{nx,ny},{koi,t+1}});
+                            vis[nx][ny][koi]=1;
                         }
                     }
                 }
-                else if (ch >= 'a' && ch <= 'f') {
-                    int res = (1 << (ch - 'a')) | koi;
-                    //cout<<res<<endl;
-                    if (!vis[nrow][ncol][res]) {
-                        q.push({{nrow, ncol}, {res, steps + 1}});
-                        vis[nrow][ncol][res] = 1;
-                    }
-                }
-                else {
-                    if (!vis[nrow][ncol][koi]) {
-                        q.push({{nrow, ncol}, {koi, steps + 1}});
-                        vis[nrow][ncol][koi] = 1;
-                    }
+                else{
+                    if(!vis[nx][ny][koi]){
+                        q.push({{nx,ny},{koi,t+1}});
+                         vis[nx][ny][koi]=1;
+                    }                    
                 }
             }
         }
-        return ans;
+        return -1;
     }
 };
