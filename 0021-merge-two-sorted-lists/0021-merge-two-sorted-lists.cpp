@@ -54,6 +54,6 @@ public:
         else
             curr -> next = list1;
             
-        return ptr;        
+        return ptr;
     }
 };
