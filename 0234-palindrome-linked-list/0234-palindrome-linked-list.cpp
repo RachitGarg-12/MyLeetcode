@@ -25,13 +25,12 @@ public:
         }
         
         //reverse end of linked list
-        ListNode *prev=NULL,*n=slow->next;
+        ListNode *prev=NULL;
         while(slow){
-            // ListNode *temp=slow->next;
+            ListNode *temp=slow->next;
             slow->next=prev;
             prev=slow;
-            slow=n;
-            if(n!=NULL){n=n->next;}
+            slow=temp;
         }
         
         fast = head;
