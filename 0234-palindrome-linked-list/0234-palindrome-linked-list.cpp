@@ -34,13 +34,13 @@ public:
             cur=temp;
         }
         
-        fast = head;
-        while(prev && fast){
-            if(prev->val != fast->val){
+        ListNode *start = head;
+        while(prev && start){
+            if(prev->val != start->val){
                 return false;
             }
             prev = prev->next;
-            fast = fast->next;
+            start = start->next;
         }
         return true;
     }
