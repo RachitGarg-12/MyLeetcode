@@ -12,19 +12,35 @@ class Solution {
 public:
     //O(N)time and O(1)space
     bool isPalindrome(ListNode* head) {
-        ListNode *temp=head;
-        ListNode *rev=NULL;
-        while(temp){
-            ListNode *t=new ListNode(temp->val);
-            t->next=rev;
-            rev=t;
-            temp=temp->next;
+        if(head->next==NULL){return head;}
+        //find middle of linked list
+        ListNode *fast=head;
+        ListNode *slow=head;
+        while(fast && fast->next){
+            fast=fast->next->next;
+            slow=slow->next;
         }
-        while(rev && head){
-            // cout<<rev->val<<" "<<head->val<<endl;
-            if(rev->val!=head->val){return false;}
-            rev=rev->next;
-            head=head->next;
+        if(fast && fast->next==NULL){
+            slow=slow->next;
+        }
+        
+        //reverse end of linked list
+        ListNode *prev=NULL,*n=slow->next;
+        while(slow){
+            // ListNode *temp=slow->next;
+            slow->next=prev;
+            prev=slow;
+            slow=n;
+            if(n!=NULL){n=n->next;}
+        }
+        
+        fast = head;
+        while(prev && fast){
+            if(prev->val != fast->val){
+                return false;
+            }
+            prev = prev->next;
+            fast = fast->next;
         }
         return true;
     }
