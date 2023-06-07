@@ -10,12 +10,21 @@
  */
 class Solution {
 public:
+    //O(N)time and O(1)space
     bool isPalindrome(ListNode* head) {
-        ListNode *temp=head;string s="";
-        while(temp!=NULL){ s+=to_string(temp->val);temp=temp->next;}
-        int n=s.size();
-        for(int i=0;i<n/2;i++){
-            if(s[i]!=s[n-1-i]) return false;
+        ListNode *temp=head;
+        ListNode *rev=NULL;
+        while(temp){
+            ListNode *t=new ListNode(temp->val);
+            t->next=rev;
+            rev=t;
+            temp=temp->next;
+        }
+        while(rev && head){
+            // cout<<rev->val<<" "<<head->val<<endl;
+            if(rev->val!=head->val){return false;}
+            rev=rev->next;
+            head=head->next;
         }
         return true;
     }
