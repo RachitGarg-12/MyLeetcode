@@ -23,8 +23,8 @@ public:
        temp=head;
        int dis=n-k-1;
        while(dis--){temp=temp->next;}
-       ListNode *nhead=temp->next;
+       head=temp->next;
        temp->next=NULL;
-       return nhead;
+       return head;
     }
 };
