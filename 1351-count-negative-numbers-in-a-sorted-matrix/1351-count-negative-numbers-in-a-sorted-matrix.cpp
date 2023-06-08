@@ -1,16 +1,21 @@
 class Solution {
 public:
     int countNegatives(vector<vector<int>>& a) {
-        int n=a.size(),m=a[0].size(),tot=0;
-        for(int i=0;i<n;i++){
-           int l=0,r=m-1,ans=m;
-            while(l<=r){
-                int mid=l+(r-l)/2;
-                if(a[i][mid]<0){ans=mid;r=mid-1;}
-                else{l=mid+1;}
-            }
-            tot+=m-ans;
-        }
-        return tot;
+       int i=0;
+       int j=a[0].size()-1;
+       int count=0;
+       while(i<a.size()&&j>=0)
+       {
+           if(a[i][j]<0)
+           {
+               count+=(a.size()-i); // add Negative Count = Total Row - current Row
+               j--; //decrease the Column Pointer ( j--)
+           }
+           else if(a[i][j]>=0)
+           {
+               i++; // increase the Row pointer ( i++ )
+           }
+       }
+       return count;
     }
 };
