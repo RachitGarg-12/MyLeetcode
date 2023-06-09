@@ -8,7 +8,7 @@ class Solution
 	public:
 	set<string> ans;
 	int n;
-	void f(map<int,int> vis,string cur,string&S){
+	void f(vector<int>vis,string cur,string&S){
 	    if(cur.size()==n){ans.insert(cur);return;}
 	    for(int i=0;i<n;i++){
 	        if(!vis[i]){
@@ -20,7 +20,7 @@ class Solution
 	}
 	vector<string>find_permutation(string S){
 		   n=S.size();
-		   map<int,int> vis;
+		   vector<int> vis(n,0);
 		   f(vis,"",S);
 		   vector<string> res;
 		   for(auto i:ans){res.push_back(i);}
