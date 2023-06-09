@@ -1,37 +1,25 @@
 class Solution {
 public:
-     int maxPerformance(int n, vector<int>& speed, vector<int>& efficiency, int k) {
-        int MOD = 1e9 + 7;
-        vector<pair<int, int>> candidates(n);
-        // we build the pair { efficiency, speed } so that we can sort it later
-        for (int i = 0; i < n; i++) candidates[i] = { efficiency[i], speed[i] };
-        // sort candidates in descending order
-        sort(candidates.rbegin(), candidates.rend());
-        // Using Example 1: 
-        // speed: [2, 10, 3, 1 ,5, 8] and efficiency: [5, 4, 3, 9, 7, 2]
-        // after sort, it becomes
-        // candidates: [{9, 1}, {7 ,5}, {5, 2}, {4, 10}, {3, 3}, {2, 8}]
-        long speedSum = 0, ans = 0;
-        // we use priority queue here with greater<int> to store the sum
-        // i.e min heap (the smallest element goes on the top)
-        priority_queue <int, vector<int>, greater<int>> pq;
-        // iterate each pair
-        for (auto& [e, s] : candidates) {
-            // put the speed to priority queue
+    const int mod=1e9+7;
+    int maxPerformance(int n, vector<int>& speed, vector<int>& efficiency, int k) {
+        vector<pair<int,int>> a;
+        for(int i=0;i<n;i++){
+            a.push_back({efficiency[i],speed[i]});
+        }
+        sort(a.rbegin(),a.rend());
+        // we sort our people according to efficiency , as we want to check for max efficency
+        priority_queue<int,vector<int>,greater<int>> pq;
+        //priority queue is used , so that when num of elements taken >k , then remove element with least speed ,because efficency is already fixed in sorting
+        long speedsum=0,ans=0;
+        for(auto &[e,s]:a){
+            speedsum+=s;
             pq.push(s);
-            // add to speedSum
-            speedSum += s;
-            // we only need to choose at most k engineers
-            // hence if the queue size is greater than k
-            // we need to remove a candidate
-            if (pq.size() > k) {
-                // who to remove? of course the one with smallest speed
-                speedSum -= pq.top();
+            if(pq.size()>k){
+                speedsum-=pq.top();
                 pq.pop();
             }
-            // calculate the performance
-            ans = max(ans, speedSum * e);
+            ans=max(ans,speedsum*e);
         }
-        return ans % MOD;
+        return ans%mod;
     }
 };
