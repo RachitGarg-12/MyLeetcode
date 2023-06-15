@@ -23,6 +23,7 @@ public:
         // printSecond() outputs "second". Do not change or remove this line.
         printSecond();
         turn=2;
+        lock.unlock();
         cv.notify_all();
     }
 
@@ -33,5 +34,6 @@ public:
         }        
         // printThird() outputs "third". Do not change or remove this line.
         printThird();
+        lock.unlock();
     }
 };
