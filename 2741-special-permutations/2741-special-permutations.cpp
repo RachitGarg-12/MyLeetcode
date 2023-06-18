@@ -19,7 +19,7 @@ public:
         int ans=0;
         int l=1<<n;
         vector<vector<int>> dp(n+1,vector<int>(l+6,-1));
-        sort(a.begin(),a.end());
+        // sort(a.begin(),a.end());
         return f(0,0,a,dp);
     }
 };
