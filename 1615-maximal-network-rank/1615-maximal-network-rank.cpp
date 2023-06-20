@@ -2,7 +2,7 @@ class Solution {
 public:
     int maximalNetworkRank(int n, vector<vector<int>>& roads) {
         vector<int> indeg(n,0);
-        unordered_map<int,set<int>> m;
+        unordered_map<int,unordered_set<int>> m;
         for(auto i:roads){
             indeg[i[0]]++;
             indeg[i[1]]++;
@@ -11,7 +11,7 @@ public:
         }
         int ans=0;
         for(int i=0;i<n-1;i++){
-            set<int> temp=m[i];
+            unordered_set<int> temp=m[i];
             for(int j=i+1;j<n;j++){
                 if(temp.find(j)!=temp.end()){
                     ans=max(ans,indeg[i]+indeg[j]-1);
