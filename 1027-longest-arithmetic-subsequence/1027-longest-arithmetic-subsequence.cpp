@@ -7,10 +7,10 @@ public:
         for(int i=1;i<n;i++){
             for(int j=0;j<i;j++){
                 int dif=500+a[i]-a[j];
-                dp[i][dif]=1+dp[j][dif];
+                dp[i][dif]=max(2,1+dp[j][dif]);
                 ans=max(ans,dp[i][dif]);
             }
         }
-        return ans+1;
+        return ans;
     }
 };
