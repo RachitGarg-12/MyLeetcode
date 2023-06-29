@@ -30,6 +30,7 @@ public:
                 char ch=grid[nx][ny];
                 if(ch>='a' && ch<='f'){
                     int res=(1<<ch-'a')|koi;
+                    // cout<<nx<<" "<<ny<<" "<<res<<" "<<koi<< endl;
                     if(res==k){return t+1;}
                     if(!vis[nx][ny][res]){
                         q.push({{nx,ny},{res,t+1}});
@@ -37,6 +38,7 @@ public:
                     }
                 }
                 else if(ch>='A' && ch<='F'){
+                     // cout<<nx<<" "<<ny<<" "<<koi<< endl;
                     if((koi>>ch-'A')&1){
                         if(!vis[nx][ny][koi]){
                             q.push({{nx,ny},{koi,t+1}});
