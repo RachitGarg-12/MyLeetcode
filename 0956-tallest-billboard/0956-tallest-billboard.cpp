@@ -1,7 +1,7 @@
 class Solution {
     int memo[20][10001];
     int dp(vector<int>& rods, int i, int balance) {
-        if (i == rods.size()) return balance == 5000 ? 0 : INT_MIN;
+        if (i == rods.size())return balance == 5000 ? 0 : INT_MIN;
         if (memo[i][balance] != -1) return memo[i][balance];
 
         int take = (dp(rods, i+1, balance + rods[i]) != INT_MIN ? dp(rods, i+1, balance + rods[i]) + rods[i] : INT_MIN);
