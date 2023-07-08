@@ -24,7 +24,7 @@ public:
         vector<long long> a2=a1;
         reverse(a2.begin(),a2.end());
         for(int i=0;i<k;i++){a+=a1[i];b+=a2[i];}
-        long long ans=a-b;
-        return abs(ans);
+        long long ans=b-a;
+        return ans;
     }
 };
