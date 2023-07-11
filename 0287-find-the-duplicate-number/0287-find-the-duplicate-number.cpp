@@ -1,6 +1,7 @@
 class Solution {
 public:
     int findDuplicate(vector<int>& nums) {
+	//Linked List cycle method- TC- O(1) , SC-O(1);
 	    int slow=nums[0];
 	    int fast=nums[0];
 	    do{
