@@ -9,11 +9,11 @@ class Solution
 {
     public:
     bool isFrequencyUnique(int n, int arr[])
-    {    unordered_map<int,int> m,freq;
+    {    unordered_map<int,int> m;
          for(int i=0;i<n;i++){
              m[arr[i]]++;
          }
-         int x=m[arr[0]];
+         vector<int> freq(n,0);
          for(auto i:m){
              if(freq[i.second]==1){return false;}
              freq[i.second]=1;
