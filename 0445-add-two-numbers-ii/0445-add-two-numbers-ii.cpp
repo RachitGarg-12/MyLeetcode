@@ -20,24 +20,16 @@ public:
             b+=l2->val+'0';
             l2=l2->next;
         }
-        string s="";
+        ListNode *result=NULL;
         int i=a.size()-1,j=b.size()-1,carry=0;
-        while(i>=0 || j>=0){
+        while(i>=0 || j>=0 ||carry>0 ){
             int cur=(i>=0?(a[i]-'0'):0)+(j>=0?(b[j]-'0'):0)+carry;
-            s+=(cur%10)+'0';
             carry=cur/10;
+            ListNode* newNode = new ListNode(cur%10);
+            newNode->next = result;
+            result = newNode;
             i--;j--;
         }
-        if(carry){s+=carry+'0';}
-        reverse(s.begin(),s.end());
-        int k=1,n=s.size();
-        ListNode* root=new ListNode(s[0]-'0');
-        ListNode* temp=root;
-        while(k<n){
-            temp->next=new ListNode(s[k]-'0');
-            temp=temp->next;
-            k++;
-        }
-        return root;
+        return result;
     }
 };
