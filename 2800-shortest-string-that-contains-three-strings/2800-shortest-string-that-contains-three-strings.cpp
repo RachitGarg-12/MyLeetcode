@@ -4,7 +4,7 @@ public:
         if(a.find(b) != string::npos)return a;
         for(int i= min(size(a),size(b));i>=0;i--){
             if(a.substr(a.size()-i) == b.substr(0,i))return a + b.substr(i);
-        };
+        }
         return a + b;
     }
     string helper(string a,string b,string c){
