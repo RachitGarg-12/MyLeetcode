@@ -23,7 +23,7 @@ class Solution
             double y = (nm / dm);
             
             if(mp[x] > 0)
-                count = count + mp[x];
+                count += mp[x];
                 
             mp[y]++;
         }
