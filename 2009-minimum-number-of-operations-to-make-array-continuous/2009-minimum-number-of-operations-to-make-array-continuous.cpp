@@ -6,7 +6,7 @@ public:
         sort(nums.begin(), nums.end());
         auto it=unique(nums.begin(), nums.end());
         nums.erase(it, nums.end());//erase the repetive elements
-        int m=nums.size(), k=n-m;
+        int m=nums.size();
         for(int i=0; i<m; i++){
             int l=nums[i], r=l+n-1;
             int j=upper_bound(nums.begin()+i, nums.end(), r)-nums.begin();
