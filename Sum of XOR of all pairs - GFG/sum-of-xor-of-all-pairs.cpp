@@ -21,8 +21,7 @@ class Solution{
     	        if(arr[j]&(1<<i))  cnt0++;
     	        else cntZ++;
     	    }
-    	    long long int p = cntZ*cnt0;
-    	    ans+=(1<<i)*p;
+    	    ans+=(1<<i)*cntZ*cnt0;
     	}
     	return ans;
     }
