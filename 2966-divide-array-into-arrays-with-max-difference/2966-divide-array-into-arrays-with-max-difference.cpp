@@ -1,33 +1,23 @@
 class Solution {
 public:
     vector<vector<int>> divideArray(vector<int>& nums, int k) {
-        map<int,int> freq;
-        for(auto i:nums){
-            freq[i]++;
-        }
-        vector<vector<int>> ans;
-        vector<int> cur;
-        for(auto &i:freq){
-            if(cur.size()>0){
-                if(i.first-cur[0]>k){return {};}
-                while(cur.size()<3 && i.second--){
-                    cur.push_back(i.first);
-                }      
-                if(cur.size()==3){
-                    ans.push_back(cur);
-                    cur={};
-                }              
+        int size = nums.size();
+        if (size % 3 != 0)
+            return vector<vector<int>>();
+
+        sort(nums.begin(), nums.end());
+
+        vector<vector<int>> result(size / 3, vector<int>(3));
+        int groupIndex = 0;
+        for (int i = 0; i < size; i += 3) {
+            if (i + 2 < size && nums[i + 2] - nums[i] <= k) {
+                result[groupIndex] = { nums[i], nums[i + 1], nums[i + 2] };
+                groupIndex++;
             }
-            while(i.second>=3){
-                ans.push_back({i.first,i.first,i.first});
-                i.second-=3;
-            }
-            if(i.second>0){
-                while(i.second--){
-                    cur.push_back(i.first);
-                }
+            else {
+                return vector<vector<int>>();
             }
         }
-        return ans;
+        return result;
     }
 };
