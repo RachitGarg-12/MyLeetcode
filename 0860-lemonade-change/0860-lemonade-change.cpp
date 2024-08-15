@@ -1,28 +1,29 @@
 class Solution {
 public:
     bool lemonadeChange(vector<int>& bills) {
-        map<int,int> mp;
+        int cnt5=0,cnt10=0;
         for(auto i:bills){
-            mp[i]++;
+            if(i==5){cnt5++;}
             if(i==10){
-                if(mp[5]>0){
-                   mp[i-5]--;
+                cnt10++;
+                if(cnt5>0){
+                   cnt5--;
                 }
                 else{
                     return false;
                 }
             }
             else if(i==20){
-                if(mp[5]==0){return false;}
-                if(mp[10]==0){
-                    if(mp[5]>=3){
-                        mp[5]-=3;
+                if(cnt5==0){return false;}
+                if(cnt10==0){
+                    if(cnt5>=3){
+                        cnt5-=3;
                     }
                     else{return false;}
                 }
                 else{
-                    mp[10]--;
-                    mp[5]--;
+                    cnt10--;
+                    cnt5--;
                 }
                 
             }
