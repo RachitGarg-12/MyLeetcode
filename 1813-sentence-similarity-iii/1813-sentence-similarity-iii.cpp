@@ -1,29 +1,23 @@
 class Solution {
 public:
-    bool areSentencesSimilar(string sentence1, string sentence2) {
-        vector<string> sen1,sen2;
+    vector<string> splitStr(string s){
+        vector<string> ans;
         string cur="";
-        for(auto i:sentence1){
+        for(auto i:s){
             if(i==' '){
-                sen1.push_back(cur);
+                ans.push_back(cur);
                 cur="";
             }
             else{
                 cur+=i;
             }
         }
-        sen1.push_back(cur);
-        cur="";
-        for(auto i:sentence2){
-            if(i==' '){
-                sen2.push_back(cur);
-                cur="";
-            }
-            else{
-                cur+=i;
-            }
-        }
-        sen2.push_back(cur);
+        ans.push_back(cur);  
+        return ans;
+    }
+    bool areSentencesSimilar(string sentence1, string sentence2) {
+        vector<string> sen1=splitStr(sentence1);
+        vector<string> sen2=splitStr(sentence2);
         
         if(sen1.size()<sen2.size()){
             swap(sen1,sen2);
