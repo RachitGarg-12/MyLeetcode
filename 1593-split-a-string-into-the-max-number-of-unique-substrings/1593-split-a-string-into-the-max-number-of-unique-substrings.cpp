@@ -1,6 +1,6 @@
 class Solution {
 public:
-    int count(int i,string &s,set<string> mp){
+    int count(int i,string &s,unordered_set<string>& mp){
         if(i==s.size())return 0;
         string cur="";
         int ans=0;
@@ -15,7 +15,7 @@ public:
         return ans;
     }
     int maxUniqueSplit(string s) {
-        set<string> mp;
+        unordered_set<string> mp;
         return count(0,s,mp);
     }
 };
