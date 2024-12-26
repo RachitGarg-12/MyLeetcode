@@ -1,11 +1,12 @@
 class Solution {
 public:
-    int dp[21][10001];
+    int dp[21][3001];
     int ways(int i,vector<int>& nums, int target){
         if(i==nums.size()){
             if(target==0)return 1;
             return 0;
         }
+        
         if(dp[i][1000+target]!=-1){
             return dp[i][1000+target];
         }
